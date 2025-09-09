@@ -1,0 +1,271 @@
+TASK: Implement Downloadable Request Forms (Landlord & Tenant) with PDF + Email + Admin Exports
+Objective
+
+Ship two downloadable, production-ready request forms:
+
+Landlord Request Form (/landlord-request)
+
+Tenant Request Form (/tenant-request)
+
+Both must be:
+
+Downloadable as blank PDFs from the website, and
+
+Submittable online (with server-side PDF generation from submitted data, plus email notifications and admin storage/exports).
+
+Non-Negotiables / Success Criteria
+
+Two routes live: /landlord-request and /tenant-request.
+
+Each page contains:
+
+A Download Blank PDF button (instant download, no login).
+
+A Submit Online form (validated, secure, fast).
+
+On submit:
+
+Server generates a PDF of the submission (templated), attaches it to an email to info@9starrenovations.com and an auto-reply to the requester.
+
+Data stored persistently (DB or durable JSON/SQLite) and appears in an /admin/requests table.
+
+Admin can export CSV and download PDFs of each submission.
+
+No manual steps for the CEO. All work handled inside Replit deployment.
+
+Forms must load fast on mobile, be spam-protected, and work reliably over HTTPS.
+
+Architecture & Stack (default)
+
+Frontend: plain HTML + minimal CSS (Tailwind optional). Keep it light.
+
+Backend: Node.js (Express).
+
+PDF generation: pdfkit (or puppeteer if you prefer HTML → PDF).
+
+Email: nodemailer (use SMTP creds via env).
+
+Storage: better-sqlite3 or JSON file; if you prefer, use SQLite (single file DB).
+
+Security: hCaptcha (preferred) or a hidden honeypot + rate-limit express-rate-limit.
+
+If the project is already in a different framework (Next.js/Vite), keep the same principles but preserve the routes and acceptance criteria.
+
+Routes & Files (create/update)
+
+Public pages
+
+GET /landlord-request → renders Landlord form page
+
+GET /tenant-request → renders Tenant form page
+
+GET /forms/landlord-blank.pdf → serves static blank landlord form
+
+GET /forms/tenant-blank.pdf → serves static blank tenant form
+
+API
+
+POST /api/requests/landlord → validates input, saves submission, generates PDF, emails, returns success JSON
+
+POST /api/requests/tenant → same as above
+
+Admin
+
+GET /admin/requests → simple password-protected table (query string ?type=landlord|tenant|all)
+
+GET /admin/requests/export.csv → CSV export (filtered by type, date_from, date_to)
+
+GET /admin/requests/:id.pdf → download generated PDF of specific submission
+
+Folders
+
+/public/forms/landlord-blank.pdf (static)
+
+/public/forms/tenant-blank.pdf (static)
+
+/storage/submissions.db (or /storage/submissions.json)
+
+/storage/pdfs/{uuid}.pdf (generated per submission)
+
+/templates/pdf/landlord.hbs, /templates/pdf/tenant.hbs (if using HTML → PDF)
+
+/views/landlord-request.html, /views/tenant-request.html (or equivalent JSX/SSR)
+
+Form Fields (minimum viable)
+Landlord Request
+
+Full Name (required)
+
+Company (optional)
+
+Email (required)
+
+Phone (required)
+
+Property Address (required)
+
+Request Type (dropdown: Emergency Repair, General Maintenance, Turnover, Renovation, Other)
+
+Preferred Date/Time (optional)
+
+Access Instructions (optional)
+
+Budget Range (optional)
+
+Description (required, multiline)
+
+File Uploads (photos/videos; limit 10MB each; allow 3 files)
+
+Consent checkbox (required): “I confirm I am authorized to request service at this property.”
+
+Tenant Request
+
+Full Name (required)
+
+Email (required)
+
+Phone (required)
+
+Property Address (required)
+
+Unit/Apartment # (required)
+
+Permission to Enter (required: Yes/No with time window)
+
+Issue Type (dropdown similar to above)
+
+Description (required)
+
+File Uploads (same constraints)
+
+Consent (required): “I confirm this request is accurate and authorize contact.”
+
+Validation
+
+Required fields, email format, phone format, 1000 char limit for description.
+
+Reject files >10MB; allow only images/mp4/pdf.
+
+Rate-limit: 20 req/hr/IP.
+
+Emails
+
+To Operations: info@9starrenovations.com
+
+Subject: [New {Landlord|Tenant} Request] {Property Address} — {Name}
+
+Body (HTML): key fields + timestamp + link to admin view + link to PDF.
+
+Attach: generated submission PDF.
+
+Auto-Reply to Requester:
+
+Subject: 9 Star Renovations — Request Received
+
+Body: “Thanks, we’ve received your request. For emergencies call (204) 481-4243. Ticket ID: {UUID}.”
+
+Env Vars (Replit Secrets)
+
+SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
+
+ADMIN_PASSWORD (for /admin/requests)
+
+HCAPTCHA_SECRET (if used)
+
+PDF Generation
+
+Use a branded header (logo “9★ 9 Star Renovations”), footer with contact line:
+“(204) 481-4243 • info@9starrenovations.com
+ • Serving Winnipeg”
+
+Include form fields, submission timestamp (UTC and Winnipeg local), and a unique Ticket ID (UUID).
+
+Save to /storage/pdfs/{uuid}.pdf, attach to email, and expose via admin download route.
+
+Admin Panel (lightweight)
+
+Password prompt → ADMIN_PASSWORD.
+
+Table columns: ID, Type, Name, Email, Phone, Address, CreatedAt, Status (default: “New”).
+
+Filters: type, date_from, date_to.
+
+Actions: Download PDF, Export CSV, Mark as In-Progress/Closed (store status change).
+
+Frontend UX Requirements
+
+On each form page, show two prominent buttons at top:
+
+“Download Blank PDF” → direct download of /forms/...-blank.pdf
+
+“Submit Online” → scroll to form section
+
+Emergency CTA sticky header: (204) 481-4243 and info@9starrenovations.com
+
+After submit: show success toast + email confirmation note + Ticket ID.
+
+Security & Reliability
+
+Rate limit and hCaptcha/honeypot.
+
+Server-side validation (don’t trust client).
+
+Multer for uploads (sanitize filenames, store to /storage/uploads).
+
+Reject executable content, verify MIME types, and limit file size/count.
+
+Log errors with timestamps; do not expose stack traces to users.
+
+Deliverables
+
+Live routes/pages and working APIs as defined.
+
+Two static blank PDFs (clean, branded) downloadable from public routes.
+
+Server-generated PDFs for each submission, stored and downloadable via admin.
+
+Email notifications (ops + auto-reply) with correct content and attachments.
+
+Admin panel with filtering, CSV export, and per-submission PDF download.
+
+README with:
+
+How to set env vars
+
+How to run locally / deploy on Replit
+
+Admin password instructions
+
+Backup/restore of /storage directory
+
+Acceptance Tests (run before closing)
+
+ Download blank PDFs from both pages without login.
+
+ Submit both forms with attachments; receive success on UI.
+
+ Ops inbox receives email with attached PDF in <60s.
+
+ Requester receives auto-reply email.
+
+ Admin page shows new entries; CSV exports; PDFs download.
+
+ Rate-limit and spam checks work (prove by hitting limits on a test env).
+
+ Mobile test (iOS/Android): forms render, upload works, CTA visible.
+
+Branding Copy (use on pages)
+
+Headlines:
+
+Professional Property Repair and Maintenance for Landlords in Winnipeg
+
+Fast. Reliable. Licensed & Insured.
+
+CTA Buttons:
+
+Download Blank PDF
+
+Submit Request Online
+
+Emergency? Call (204) 481-4243
