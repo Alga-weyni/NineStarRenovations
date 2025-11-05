@@ -979,3 +979,39 @@ p.text-accent {
   color: #052659 !important;
   font-weight: 500 !important;
 }
+
+/* === HEADER TEXT MUST BE LIGHT ON DARK BACKGROUND === */
+header .header-title,
+header h1 {
+  color: #C1E8FF !important;
+  background: none !important;
+  -webkit-text-fill-color: #C1E8FF !important;
+  font-weight: 700 !important;
+}
+
+header .header-subtitle,
+header p {
+  color: #7DA0CA !important;
+  background: none !important;
+  -webkit-text-fill-color: #7DA0CA !important;
+}
+
+/* === HEADER NAVIGATION LINKS LIGHT === */
+header nav a,
+header nav span {
+  color: #C1E8FF !important;
+  background: none !important;
+  -webkit-text-fill-color: #C1E8FF !important;
+}
+
+header nav a:hover,
+header nav span:hover {
+  color: #E8F4FF !important;
+  -webkit-text-fill-color: #E8F4FF !important;
+}
+
+/* === NUMBER "9" IN HEADER === */
+header .luxury-glow span {
+  color: #C1E8FF !important;
+  -webkit-text-fill-color: #C1E8FF !important;
+}
