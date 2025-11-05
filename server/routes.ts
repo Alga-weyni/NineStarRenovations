@@ -50,7 +50,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate request data
       const validatedData = landlordRequestSchema.parse({
         ...formData,
-        files: fileNames.length > 0 ? fileNames : undefined
+        files: fileNames.length > 0 ? JSON.stringify(fileNames) : undefined
       });
       
       // Create request
@@ -59,11 +59,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate PDF
       const pdfPath = await PDFGenerator.generateRequestPDF(request);
       
-      // Send emails
-      await Promise.all([
-        emailService.sendOperationsNotification(request, pdfPath),
-        emailService.sendAutoReply(request),
-      ]);
+      // Send emails (don't fail if email sending fails)
+      try {
+        await Promise.all([
+          emailService.sendOperationsNotification(request, pdfPath),
+          emailService.sendAutoReply(request),
+        ]);
+      } catch (emailError) {
+        console.error("Email sending failed (non-fatal):", emailError);
+      }
       
       res.json({ 
         success: true, 
@@ -100,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate request data
       const validatedData = tenantRequestSchema.parse({
         ...formData,
-        files: fileNames.length > 0 ? fileNames : undefined
+        files: fileNames.length > 0 ? JSON.stringify(fileNames) : undefined
       });
       
       // Create request
@@ -109,11 +113,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate PDF
       const pdfPath = await PDFGenerator.generateRequestPDF(request);
       
-      // Send emails
-      await Promise.all([
-        emailService.sendOperationsNotification(request, pdfPath),
-        emailService.sendAutoReply(request),
-      ]);
+      // Send emails (don't fail if email sending fails)
+      try {
+        await Promise.all([
+          emailService.sendOperationsNotification(request, pdfPath),
+          emailService.sendAutoReply(request),
+        ]);
+      } catch (emailError) {
+        console.error("Email sending failed (non-fatal):", emailError);
+      }
       
       res.json({ 
         success: true, 

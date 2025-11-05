@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Download, FileText, Eye } from "lucide-react";
+import { Download, FileText, Building2, Home } from "lucide-react";
 import type { Request } from "@shared/schema";
 
 export default function AdminRequestsPage() {
@@ -166,21 +167,7 @@ export default function AdminRequestsPage() {
             <CardTitle>Filters</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-4 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">Type</label>
-                <Select value={filters.type} onValueChange={(value: any) => setFilters(prev => ({ ...prev, type: value }))}>
-                  <SelectTrigger data-testid="select-filter-type">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    <SelectItem value="landlord">Landlord</SelectItem>
-                    <SelectItem value="tenant">Tenant</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
+            <div className="grid md:grid-cols-3 gap-4">
               <div>
                 <label className="text-sm font-medium mb-2 block">Date From</label>
                 <Input
@@ -216,98 +203,298 @@ export default function AdminRequestsPage() {
           </CardContent>
         </Card>
 
-        {/* Requests Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              Requests ({requestsQuery.data?.length || 0})
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {requestsQuery.isLoading ? (
-              <div className="text-center py-8">Loading requests...</div>
-            ) : requestsQuery.error ? (
-              <div className="text-center py-8 text-destructive">
-                Error loading requests: {(requestsQuery.error as Error).message}
-              </div>
-            ) : !requestsQuery.data?.length ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No requests found
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Ticket ID</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Address</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {requestsQuery.data?.map((request) => (
-                      <TableRow key={request.id} data-testid={`row-request-${request.id}`}>
-                        <TableCell className="font-mono text-xs">
-                          {request.ticketId}
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">
-                            {request.type}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {request.fullName}
-                        </TableCell>
-                        <TableCell>{request.email}</TableCell>
-                        <TableCell>{request.phone}</TableCell>
-                        <TableCell className="max-w-xs truncate">
-                          {request.address}
-                          {request.unit && ` - Unit ${request.unit}`}
-                        </TableCell>
-                        <TableCell>
-                          <Select 
-                            value={request.status || 'new'} 
-                            onValueChange={(value) => updateStatusMutation.mutate({ id: request.id, status: value })}
-                          >
-                            <SelectTrigger className="w-32" data-testid={`select-status-${request.id}`}>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="new">New</SelectItem>
-                              <SelectItem value="in-progress">In Progress</SelectItem>
-                              <SelectItem value="closed">Closed</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
-                        <TableCell className="text-xs">
-                          {new Date(request.createdAt!).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleDownloadPDF(request.id)}
-                              data-testid={`button-download-pdf-${request.id}`}
-                            >
-                              <FileText className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        {/* Requests Tabs */}
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="all" className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              All Requests ({requestsQuery.data?.length || 0})
+            </TabsTrigger>
+            <TabsTrigger value="landlord" className="flex items-center gap-2">
+              <Building2 className="w-4 h-4" />
+              Landlord ({requestsQuery.data?.filter(r => r.type === 'landlord').length || 0})
+            </TabsTrigger>
+            <TabsTrigger value="tenant" className="flex items-center gap-2">
+              <Home className="w-4 h-4" />
+              Tenant ({requestsQuery.data?.filter(r => r.type === 'tenant').length || 0})
+            </TabsTrigger>
+          </TabsList>
+
+          {/* All Requests Tab */}
+          <TabsContent value="all">
+            <Card>
+              <CardHeader>
+                <CardTitle>All Requests</CardTitle>
+                <CardDescription>View and manage all service requests</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {requestsQuery.isLoading ? (
+                  <div className="text-center py-8">Loading requests...</div>
+                ) : requestsQuery.error ? (
+                  <div className="text-center py-8 text-destructive">
+                    Error loading requests: {(requestsQuery.error as Error).message}
+                  </div>
+                ) : !requestsQuery.data?.length ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No requests found
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Ticket ID</TableHead>
+                          <TableHead>Type</TableHead>
+                          <TableHead>Name</TableHead>
+                          <TableHead>Contact</TableHead>
+                          <TableHead>Address</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Created</TableHead>
+                          <TableHead>Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {requestsQuery.data?.map((request) => (
+                          <TableRow key={request.id} data-testid={`row-request-${request.id}`}>
+                            <TableCell className="font-mono text-xs font-semibold">
+                              {request.ticketId}
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant={request.type === 'landlord' ? 'default' : 'secondary'}>
+                                {request.type === 'landlord' ? <Building2 className="w-3 h-3 mr-1 inline" /> : <Home className="w-3 h-3 mr-1 inline" />}
+                                {request.type}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {request.fullName}
+                              {request.company && <div className="text-xs text-muted-foreground">{request.company}</div>}
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-sm">{request.email}</div>
+                              <div className="text-xs text-muted-foreground">{request.phone}</div>
+                            </TableCell>
+                            <TableCell className="max-w-xs">
+                              <div className="text-sm">{request.address}</div>
+                              {request.unit && <div className="text-xs text-muted-foreground">Unit {request.unit}</div>}
+                            </TableCell>
+                            <TableCell>
+                              <Select 
+                                value={request.status || 'new'} 
+                                onValueChange={(value) => updateStatusMutation.mutate({ id: request.id, status: value })}
+                              >
+                                <SelectTrigger className="w-32" data-testid={`select-status-${request.id}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="new">New</SelectItem>
+                                  <SelectItem value="in-progress">In Progress</SelectItem>
+                                  <SelectItem value="closed">Closed</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell className="text-xs">
+                              {new Date(request.createdAt!).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDownloadPDF(request.id)}
+                                data-testid={`button-download-pdf-${request.id}`}
+                              >
+                                <FileText className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Landlord Requests Tab */}
+          <TabsContent value="landlord">
+            <Card>
+              <CardHeader className="bg-primary/5">
+                <CardTitle className="flex items-center gap-2">
+                  <Building2 className="w-5 h-5" />
+                  Landlord Requests
+                </CardTitle>
+                <CardDescription>Property owner and management service requests</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                {requestsQuery.isLoading ? (
+                  <div className="text-center py-8">Loading requests...</div>
+                ) : requestsQuery.data?.filter(r => r.type === 'landlord').length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No landlord requests found
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Ticket ID</TableHead>
+                          <TableHead>Name / Company</TableHead>
+                          <TableHead>Contact</TableHead>
+                          <TableHead>Property</TableHead>
+                          <TableHead>Request Type</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Created</TableHead>
+                          <TableHead>PDF</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {requestsQuery.data?.filter(r => r.type === 'landlord').map((request) => (
+                          <TableRow key={request.id} data-testid={`row-request-${request.id}`}>
+                            <TableCell className="font-mono text-xs font-semibold">
+                              {request.ticketId}
+                            </TableCell>
+                            <TableCell>
+                              <div className="font-medium">{request.fullName}</div>
+                              {request.company && <div className="text-xs text-muted-foreground">{request.company}</div>}
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-sm">{request.email}</div>
+                              <div className="text-xs text-muted-foreground">{request.phone}</div>
+                            </TableCell>
+                            <TableCell className="max-w-xs">
+                              <div className="text-sm">{request.address}</div>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{request.requestType}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Select 
+                                value={request.status || 'new'} 
+                                onValueChange={(value) => updateStatusMutation.mutate({ id: request.id, status: value })}
+                              >
+                                <SelectTrigger className="w-32" data-testid={`select-status-${request.id}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="new">New</SelectItem>
+                                  <SelectItem value="in-progress">In Progress</SelectItem>
+                                  <SelectItem value="closed">Closed</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell className="text-xs">
+                              {new Date(request.createdAt!).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDownloadPDF(request.id)}
+                                data-testid={`button-download-pdf-${request.id}`}
+                              >
+                                <FileText className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Tenant Requests Tab */}
+          <TabsContent value="tenant">
+            <Card>
+              <CardHeader className="bg-secondary/5">
+                <CardTitle className="flex items-center gap-2">
+                  <Home className="w-5 h-5" />
+                  Tenant Requests
+                </CardTitle>
+                <CardDescription>Residential tenant maintenance and repair requests</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                {requestsQuery.isLoading ? (
+                  <div className="text-center py-8">Loading requests...</div>
+                ) : requestsQuery.data?.filter(r => r.type === 'tenant').length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No tenant requests found
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Ticket ID</TableHead>
+                          <TableHead>Name</TableHead>
+                          <TableHead>Contact</TableHead>
+                          <TableHead>Property</TableHead>
+                          <TableHead>Issue Type</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Created</TableHead>
+                          <TableHead>PDF</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {requestsQuery.data?.filter(r => r.type === 'tenant').map((request) => (
+                          <TableRow key={request.id} data-testid={`row-request-${request.id}`}>
+                            <TableCell className="font-mono text-xs font-semibold">
+                              {request.ticketId}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {request.fullName}
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-sm">{request.email}</div>
+                              <div className="text-xs text-muted-foreground">{request.phone}</div>
+                            </TableCell>
+                            <TableCell className="max-w-xs">
+                              <div className="text-sm">{request.address}</div>
+                              {request.unit && <div className="text-xs text-muted-foreground">Unit {request.unit}</div>}
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{request.requestType}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Select 
+                                value={request.status || 'new'} 
+                                onValueChange={(value) => updateStatusMutation.mutate({ id: request.id, status: value })}
+                              >
+                                <SelectTrigger className="w-32" data-testid={`select-status-${request.id}`}>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="new">New</SelectItem>
+                                  <SelectItem value="in-progress">In Progress</SelectItem>
+                                  <SelectItem value="closed">Closed</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell className="text-xs">
+                              {new Date(request.createdAt!).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDownloadPDF(request.id)}
+                                data-testid={`button-download-pdf-${request.id}`}
+                              >
+                                <FileText className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
