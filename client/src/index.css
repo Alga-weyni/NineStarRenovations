@@ -1026,7 +1026,7 @@ button[role="checkbox"] {
   cursor: pointer !important;
   position: relative !important;
   z-index: 10 !important;
-  background-color: white !important;
+  background-color: #021024 !important;
   border: 2px solid #052659 !important;
 }
 
@@ -1055,7 +1055,7 @@ button[role="checkbox"] + div label {
 button[role="checkbox"] svg {
   width: 16px !important;
   height: 16px !important;
-  color: white !important;
+  color: #021024 !important;
 }
 
 /* === CHECKMARK VISIBILITY FIX === */
@@ -1064,8 +1064,8 @@ button[role="checkbox"][data-state="checked"] svg {
   display: block !important;
   width: 14px !important;
   height: 14px !important;
-  color: white !important;
-  stroke: white !important;
+  color: #021024 !important;
+  stroke: #021024 !important;
   stroke-width: 3px !important;
 }
 
