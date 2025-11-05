@@ -884,3 +884,98 @@ textarea:focus {
 .muted, .text-muted-foreground {
   color: #5483B3 !important;
 }
+
+/* === DARKER TEXT FOR VISIBILITY ON LIGHT BACKGROUND === */
+.hero h1,
+.hero .gradient-text,
+section h1,
+section h2 {
+  color: #021024 !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+.hero p,
+section p {
+  color: #052659 !important;
+}
+
+/* === MAKE CARD TITLES DARKER === */
+.card h3,
+.card h2,
+.card-title {
+  color: #021024 !important;
+  font-weight: 700;
+}
+
+.card-description,
+.card p {
+  color: #052659 !important;
+}
+
+/* === NAVIGATION STAYS LIGHT ON DARK HEADER === */
+header .header-title {
+  color: #C1E8FF !important;
+}
+
+header .header-subtitle {
+  color: #7DA0CA !important;
+}
+
+/* === MAIN CONTENT TEXT DARKER === */
+main h1,
+main h2,
+main h3 {
+  color: #021024 !important;
+  font-weight: 700;
+}
+
+main p,
+main span:not(.badge) {
+  color: #052659 !important;
+}
+
+/* === OVERRIDE GRADIENT TEXT FOR DARK VISIBILITY === */
+.gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #021024 !important;
+  background-clip: unset !important;
+  color: #021024 !important;
+  font-weight: 800 !important;
+}
+
+/* === MAKE HERO TITLE DARK AND BOLD === */
+section h1.gradient-text,
+.hero h1 {
+  color: #021024 !important;
+  background: none !important;
+  -webkit-text-fill-color: #021024 !important;
+  font-weight: 900 !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* === MAKE CARD TITLES DARK === */
+.card-title,
+h3.gradient-text,
+h2.gradient-text {
+  color: #021024 !important;
+  background: none !important;
+  -webkit-text-fill-color: #021024 !important;
+  font-weight: 700 !important;
+}
+
+/* === OVERRIDE TEXT-FOREGROUND AND TEXT-ACCENT === */
+.text-foreground {
+  color: #052659 !important;
+}
+
+.text-accent {
+  color: #052659 !important;
+}
+
+/* === MAKE PARAGRAPH TEXT DARKER === */
+p.text-foreground,
+p.text-accent {
+  color: #052659 !important;
+  font-weight: 500 !important;
+}
