@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9 Star Renovations - Professional Property Maintenance | Winnipeg</title>
+    <meta name="description" content="Professional property repair and maintenance services for landlords and tenants in Winnipeg. Fast, reliable, licensed & insured.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                }
+            },
+            fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+            }
+        }
+    };
+    </script>
+    
+    <style>
+        :root {
+            --background: hsl(210 40% 98%);
+            --foreground: hsl(215 25% 15%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(215 25% 15%);
+            --primary: hsl(217 91% 35%);
+            --primary-foreground: hsl(0 0% 100%);
+            --secondary: hsl(215 25% 40%);
+            --secondary-foreground: hsl(0 0% 100%);
+            --muted: hsl(210 40% 96%);
+            --muted-foreground: hsl(215 25% 40%);
+            --accent: hsl(217 91% 60%);
+            --accent-foreground: hsl(0 0% 100%);
+            --destructive: hsl(0 70% 50%);
+            --destructive-foreground: hsl(0 0% 100%);
+            --border: hsl(215 25% 90%);
+            --input: hsl(215 25% 90%);
+            --ring: hsl(217 91% 60%);
+            --radius: 8px;
+        }
+        
+        .emergency-header {
+            background: linear-gradient(135deg, hsl(38 100% 50%), hsl(45 100% 55%));
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, hsl(217 91% 35%), hsl(217 91% 45%));
+        }
+        
+        .form-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .star-icon {
+            color: hsl(45 100% 55%);
+        }
+    </style>
+</head>
+<body class="bg-background font-sans antialiased">
+    
+    <!-- Emergency Contact Bar -->
+    <div class="emergency-header text-white py-2 px-4 text-center text-sm font-medium">
+        🚨 Emergency? Call <a href="tel:2044814243" class="font-bold underline">(204) 481-4243</a> • Email: <a href="mailto:info@9starrenovations.com" class="underline">info@9starrenovations.com</a>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-icon text-2xl">⭐</span>
+                        <span class="text-2xl font-bold text-foreground">9</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-foreground">9 Star Renovations</h1>
+                        <p class="text-sm text-muted-foreground">Serving Winnipeg</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#services" class="text-muted-foreground hover:text-foreground transition-colors">Services</a>
+                    <a href="#contact" class="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+                    <a href="/admin/requests" class="text-muted-foreground hover:text-foreground transition-colors">Admin</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-primary-foreground py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Professional Property Repair<br>and Maintenance</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">For Landlords & Tenants in Winnipeg</p>
+            <p class="text-lg mb-12 opacity-80">Fast. Reliable. Licensed & Insured.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- @COMPONENT: RequestFormCard [type="landlord"] -->
+                <div class="bg-card text-card-foreground rounded-lg p-8 form-shadow">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🏢</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">For Landlords</h3>
+                        <p class="text-muted-foreground">Property maintenance, repairs, and renovations for rental properties</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-md transition-colors" 
+                                data-event="click:downloadLandlordPDF" 
+                                data-implementation="Direct download of /forms/landlord-blank.pdf">
+                            📄 Download Blank PDF
+                        </button>
+                        <button class="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-3 px-6 rounded-md transition-colors"
+                                data-event="click:scrollToLandlordForm"
+                                data-implementation="Smooth scroll to landlord form section">
+                            📝 Submit Request Online
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: RequestFormCard -->
+
+                <!-- @COMPONENT: RequestFormCard [type="tenant"] -->
+                <div class="bg-card text-card-foreground rounded-lg p-8 form-shadow">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🏠</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">For Tenants</h3>
+                        <p class="text-muted-foreground">Report maintenance issues and request repairs for your unit</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <button class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-md transition-colors"
+                                data-event="click:downloadTenantPDF"
+                                data-implementation="Direct download of /forms/tenant-blank.pdf">
+                            📄 Download Blank PDF
+                        </button>
+                        <button class="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-3 px-6 rounded-md transition-colors"
+                                data-event="click:scrollToTenantForm"
+                                data-implementation="Smooth scroll to tenant form section">
+                            📝 Submit Request Online
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: RequestFormCard -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Landlord Request Form Section -->
+    <!-- @COMPONENT: LandlordRequestForm -->
+    <section id="landlord-form" class="py-16 bg-muted/30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-card rounded-xl p-8 form-shadow">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-foreground mb-4">Landlord Request Form</h2>
+                    <p class="text-muted-foreground">Submit your property maintenance request online</p>
+                </div>
+
+                <form class="space-y-6" data-implementation="POST /api/requests/landlord with validation">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Full Name *</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.fullName" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Company</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.company" placeholder="Company name (optional)">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Email *</label>
+                            <input type="email" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.email" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Phone *</label>
+                            <input type="tel" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.phone" placeholder="(204) 123-4567">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Property Address *</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.address" placeholder="Full property address">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Request Type *</label>
+                            <select required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.requestType">
+                                <option value="">Select request type</option>
+                                <option value="emergency">Emergency Repair</option>
+                                <option value="maintenance">General Maintenance</option>
+                                <option value="turnover">Turnover</option>
+                                <option value="renovation">Renovation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Budget Range</label>
+                            <select class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.budget">
+                                <option value="">Select budget range</option>
+                                <option value="under-500">Under $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-2500">$1,000 - $2,500</option>
+                                <option value="2500-5000">$2,500 - $5,000</option>
+                                <option value="over-5000">Over $5,000</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Preferred Date/Time</label>
+                        <input type="datetime-local" class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="landlordForm.preferredDateTime">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Access Instructions</label>
+                        <textarea class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" rows="3" data-bind="landlordForm.accessInstructions" placeholder="How can our team access the property? (keys, lockbox, etc.)"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Description *</label>
+                        <textarea required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" rows="4" maxlength="1000" data-bind="landlordForm.description" placeholder="Describe the work needed in detail..."></textarea>
+                        <p class="text-xs text-muted-foreground mt-1">Maximum 1000 characters</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">File Uploads</label>
+                        <div class="border-2 border-dashed border-border rounded-lg p-8 text-center" data-implementation="File upload component with 10MB limit, 3 files max">
+                            <div class="mb-4">
+                                <span class="text-4xl">📎</span>
+                            </div>
+                            <p class="text-muted-foreground mb-2">Drag & drop photos/videos here, or click to browse</p>
+                            <p class="text-xs text-muted-foreground">Maximum 10MB per file, 3 files total. Accepted: JPG, PNG, MP4, PDF</p>
+                            <input type="file" multiple accept="image/*,video/mp4,application/pdf" class="hidden" data-bind="landlordForm.files">
+                            <button type="button" class="mt-4 px-4 py-2 bg-muted text-muted-foreground rounded-md hover:bg-muted/80 transition-colors">Choose Files</button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" required class="mt-1" id="landlord-consent" data-bind="landlordForm.consent">
+                        <label for="landlord-consent" class="text-sm text-muted-foreground">
+                            I confirm I am authorized to request service at this property. *
+                        </label>
+                    </div>
+
+                    <!-- hCaptcha placeholder -->
+                    <div class="bg-muted/30 border border-border rounded-md p-4 text-center" data-implementation="hCaptcha widget">
+                        <p class="text-sm text-muted-foreground">hCaptcha verification will appear here</p>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-md transition-colors" data-implementation="Form validation and submission">
+                        Submit Landlord Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: LandlordRequestForm -->
+
+    <!-- Tenant Request Form Section -->
+    <!-- @COMPONENT: TenantRequestForm -->
+    <section id="tenant-form" class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-card rounded-xl p-8 form-shadow">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-foreground mb-4">Tenant Request Form</h2>
+                    <p class="text-muted-foreground">Report maintenance issues for your unit</p>
+                </div>
+
+                <form class="space-y-6" data-implementation="POST /api/requests/tenant with validation">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Full Name *</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.fullName" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Email *</label>
+                            <input type="email" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.email" placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Phone *</label>
+                            <input type="tel" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.phone" placeholder="(204) 123-4567">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Unit/Apartment # *</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.unit" placeholder="Unit or apartment number">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Property Address *</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.address" placeholder="Full property address">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Issue Type *</label>
+                            <select required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.issueType">
+                                <option value="">Select issue type</option>
+                                <option value="emergency">Emergency Repair</option>
+                                <option value="plumbing">Plumbing Issue</option>
+                                <option value="electrical">Electrical Issue</option>
+                                <option value="heating">Heating/Cooling</option>
+                                <option value="appliance">Appliance Repair</option>
+                                <option value="maintenance">General Maintenance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-foreground mb-2">Permission to Enter *</label>
+                            <select required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" data-bind="tenantForm.entryPermission">
+                                <option value="">Select option</option>
+                                <option value="yes-anytime">Yes, anytime during business hours</option>
+                                <option value="yes-scheduled">Yes, with scheduled appointment</option>
+                                <option value="emergency-only">Emergency access only</option>
+                                <option value="no">No, I will be present</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">Description *</label>
+                        <textarea required class="w-full px-4 py-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent" rows="4" maxlength="1000" data-bind="tenantForm.description" placeholder="Describe the issue in detail..."></textarea>
+                        <p class="text-xs text-muted-foreground mt-1">Maximum 1000 characters</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-foreground mb-2">File Uploads</label>
+                        <div class="border-2 border-dashed border-border rounded-lg p-8 text-center" data-implementation="File upload component with 10MB limit, 3 files max">
+                            <div class="mb-4">
+                                <span class="text-4xl">📎</span>
+                            </div>
+                            <p class="text-muted-foreground mb-2">Drag & drop photos/videos here, or click to browse</p>
+                            <p class="text-xs text-muted-foreground">Maximum 10MB per file, 3 files total. Accepted: JPG, PNG, MP4, PDF</p>
+                            <input type="file" multiple accept="image/*,video/mp4,application/pdf" class="hidden" data-bind="tenantForm.files">
+                            <button type="button" class="mt-4 px-4 py-2 bg-muted text-muted-foreground rounded-md hover:bg-muted/80 transition-colors">Choose Files</button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" required class="mt-1" id="tenant-consent" data-bind="tenantForm.consent">
+                        <label for="tenant-consent" class="text-sm text-muted-foreground">
+                            I confirm this request is accurate and authorize contact regarding this issue. *
+                        </label>
+                    </div>
+
+                    <!-- hCaptcha placeholder -->
+                    <div class="bg-muted/30 border border-border rounded-md p-4 text-center" data-implementation="hCaptcha widget">
+                        <p class="text-sm text-muted-foreground">hCaptcha verification will appear here</p>
+                    </div>
+
+                    <button type="submit" class="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-4 px-6 rounded-md transition-colors" data-implementation="Form validation and submission">
+                        Submit Tenant Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: TenantRequestForm -->
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-muted/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-foreground mb-4">Our Services</h2>
+                <p class="text-lg text-muted-foreground">Comprehensive property maintenance solutions</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-card rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔧</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Emergency Repairs</h3>
+                    <p class="text-muted-foreground">24/7 emergency response for urgent property issues</p>
+                </div>
+                
+                <div class="bg-card rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🏠</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Property Maintenance</h3>
+                    <p class="text-muted-foreground">Regular maintenance to keep properties in top condition</p>
+                </div>
+                
+                <div class="bg-card rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔨</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Renovations</h3>
+                    <p class="text-muted-foreground">Complete renovation services for property improvements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success/Error Toast (Hidden by default) -->
+    <!-- @COMPONENT: Toast [state="success|error"] -->
+    <div id="toast" class="fixed top-4 right-4 z-50 hidden" data-implementation="Toast notification system">
+        <div class="bg-card border border-border rounded-lg p-4 form-shadow">
+            <div class="flex items-center space-x-3">
+                <div id="toast-icon" class="w-6 h-6"></div>
+                <div>
+                    <p id="toast-title" class="font-semibold text-foreground"></p>
+                    <p id="toast-message" class="text-sm text-muted-foreground"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Toast -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-foreground mb-8">Contact 9 Star Renovations</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-card rounded-lg p-6">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">📞</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Phone</h3>
+                    <p class="text-muted-foreground"><a href="tel:2044814243" class="hover:text-foreground transition-colors">(204) 481-4243</a></p>
+                </div>
+                
+                <div class="bg-card rounded-lg p-6">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">📧</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Email</h3>
+                    <p class="text-muted-foreground"><a href="mailto:info@9starrenovations.com" class="hover:text-foreground transition-colors">info@9starrenovations.com</a></p>
+                </div>
+                
+                <div class="bg-card rounded-lg p-6">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">📍</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Service Area</h3>
+                    <p class="text-muted-foreground">Winnipeg, Manitoba</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-foreground text-background py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="flex items-center space-x-1">
+                        <span class="star-icon text-2xl">⭐</span>
+                        <span class="text-xl font-bold">9</span>
+                    </div>
+                    <span class="text-xl font-bold">9 Star Renovations</span>
+                </div>
+                <p class="text-background/80 mb-4">Professional Property Maintenance • Licensed & Insured</p>
+                <p class="text-background/60 text-sm">
+                    (204) 481-4243 • info@9starrenovations.com • Serving Winnipeg
+                </p>
+                <p class="text-background/60 text-xs mt-4">
+                    © 2025 9 Star Renovations - All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Emergency CTA (Mobile) -->
+    <div class="fixed bottom-4 left-4 right-4 md:hidden z-40" data-implementation="Sticky mobile emergency button">
+        <a href="tel:2044814243" class="block bg-destructive text-destructive-foreground text-center py-3 px-4 rounded-lg font-semibold shadow-lg">
+            🚨 Emergency: (204) 481-4243
+        </a>
+    </div>
+
+    <script>
+        // TODO: Implement form submission, file upload, and validation logic
+        
+        (function() {
+            // Download PDF button handlers
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('[data-event*="downloadLandlordPDF"]')) {
+                    // TODO: Implement direct download of /forms/landlord-blank.pdf
+                    window.location.href = '/forms/landlord-blank.pdf';
+                }
+                
+                if (e.target.matches('[data-event*="downloadTenantPDF"]')) {
+                    // TODO: Implement direct download of /forms/tenant-blank.pdf  
+                    window.location.href = '/forms/tenant-blank.pdf';
+                }
+                
+                if (e.target.matches('[data-event*="scrollToLandlordForm"]')) {
+                    document.getElementById('landlord-form').scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                if (e.target.matches('[data-event*="scrollToTenantForm"]')) {
+                    document.getElementById('tenant-form').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // Form submission handlers
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // TODO: Implement form validation
+                    // TODO: Implement file upload processing
+                    // TODO: Implement API submission
+                    // TODO: Show success/error toast
+                    
+                    console.log('Form submission prevented for demo');
+                    showToast('success', 'Request Submitted', 'Your request has been submitted successfully. Ticket ID: #12345');
+                });
+            });
+
+            // Toast notification system
+            function showToast(type, title, message) {
+                const toast = document.getElementById('toast');
+                const icon = document.getElementById('toast-icon');
+                const titleEl = document.getElementById('toast-title');
+                const messageEl = document.getElementById('toast-message');
+                
+                icon.innerHTML = type === 'success' ? '✅' : '❌';
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+                
+                toast.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 5000);
+            }
+
+            // File upload preview (placeholder functionality)
+            document.querySelectorAll('input[type="file"]').forEach(input => {
+                input.addEventListener('change', function(e) {
+                    // TODO: Implement file preview and validation
+                    console.log('Files selected:', e.target.files.length);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
