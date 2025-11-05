@@ -1057,3 +1057,26 @@ button[role="checkbox"] svg {
   height: 16px !important;
   color: white !important;
 }
+
+/* === CHECKMARK VISIBILITY FIX === */
+/* Ensure checkmark icon is visible when checked */
+button[role="checkbox"][data-state="checked"] svg {
+  display: block !important;
+  width: 14px !important;
+  height: 14px !important;
+  color: white !important;
+  stroke: white !important;
+  stroke-width: 3px !important;
+}
+
+/* Make sure the indicator shows when checked */
+button[role="checkbox"][data-state="checked"] span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Unchecked state - no checkmark */
+button[role="checkbox"][data-state="unchecked"] svg {
+  display: none !important;
+}
