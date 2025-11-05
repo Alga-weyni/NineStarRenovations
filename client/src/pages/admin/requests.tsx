@@ -17,7 +17,6 @@ export default function AdminRequestsPage() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [showInitForm, setShowInitForm] = useState(false);
   const [filters, setFilters] = useState({
     type: 'all' as 'all' | 'landlord' | 'tenant',
     dateFrom: '',
@@ -26,21 +25,12 @@ export default function AdminRequestsPage() {
 
   const { toast } = useToast();
 
-  // Check if admin exists and restore token from localStorage
+  // Restore token from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem('adminToken');
     if (storedToken) {
       setToken(storedToken);
     }
-
-    fetch('/api/auth/check')
-      .then(res => res.json())
-      .then(data => {
-        setShowInitForm(!data.adminExists);
-      })
-      .catch(err => {
-        console.error('Failed to check admin status:', err);
-      });
   }, []);
 
   const requestsQuery = useQuery({
@@ -108,46 +98,6 @@ export default function AdminRequestsPage() {
       });
     },
   });
-
-  const handleInit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/init', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast({
-          title: "Initialization Failed",
-          description: data.error || "Failed to create admin user",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      localStorage.setItem('adminToken', data.token);
-      setToken(data.token);
-      setShowInitForm(false);
-      toast({
-        title: "Admin Created",
-        description: "Admin user created successfully!",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to initialize admin user",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -272,15 +222,13 @@ export default function AdminRequestsPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>{showInitForm ? "Create Admin Account" : "Admin Login"}</CardTitle>
+            <CardTitle>Admin Login</CardTitle>
             <CardDescription>
-              {showInitForm 
-                ? "Set up the first admin account for your system" 
-                : "Enter your credentials to access the admin panel"}
+              Enter your credentials to access the admin panel
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={showInitForm ? handleInit : handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label htmlFor="username" className="text-sm font-medium">
                   Username
@@ -304,9 +252,8 @@ export default function AdminRequestsPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder={showInitForm ? "Min 8 characters" : "Enter password"}
+                  placeholder="Enter password"
                   required
-                  minLength={showInitForm ? 8 : undefined}
                   data-testid="input-password"
                 />
               </div>
@@ -316,7 +263,7 @@ export default function AdminRequestsPage() {
                 disabled={isLoading}
                 data-testid="button-submit"
               >
-                {isLoading ? "Please wait..." : (showInitForm ? "Create Admin" : "Login")}
+                {isLoading ? "Please wait..." : "Login"}
               </Button>
             </form>
           </CardContent>

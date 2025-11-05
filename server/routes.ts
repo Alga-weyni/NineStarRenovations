@@ -145,52 +145,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Auth: Check if admin exists
-  app.get("/api/auth/check", async (req, res) => {
-    try {
-      const exists = await AuthService.checkIfAdminExists();
-      res.json({ adminExists: exists });
-    } catch (error) {
-      console.error("Admin check error:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
-
-  // Auth: Initialize first admin user
-  app.post("/api/auth/init", async (req, res) => {
-    try {
-      const adminExists = await AuthService.checkIfAdminExists();
-      if (adminExists) {
-        return res.status(400).json({ error: "Admin user already exists" });
-      }
-
-      const { username, password } = req.body;
-      
-      if (!username || !password) {
-        return res.status(400).json({ error: "Username and password are required" });
-      }
-
-      if (password.length < 8) {
-        return res.status(400).json({ error: "Password must be at least 8 characters" });
-      }
-
-      const user = await AuthService.createAdminUser(username, password);
-      const token = AuthService.generateToken(user.id, user.username);
-
-      res.json({
-        success: true,
-        token,
-        user: {
-          id: user.id,
-          username: user.username,
-        },
-      });
-    } catch (error) {
-      console.error("Admin init error:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
-
   // Auth: Login
   app.post("/api/auth/login", async (req, res) => {
     try {
