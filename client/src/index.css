@@ -1015,3 +1015,45 @@ header .luxury-glow span {
   color: #C1E8FF !important;
   -webkit-text-fill-color: #C1E8FF !important;
 }
+
+/* === CHECKBOX VISIBILITY AND CLICKABILITY FIXES === */
+/* Make checkboxes larger and more clickable */
+button[role="checkbox"] {
+  min-width: 20px !important;
+  min-height: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 10 !important;
+  background-color: white !important;
+  border: 2px solid #052659 !important;
+}
+
+button[role="checkbox"]:hover {
+  border-color: #021024 !important;
+  box-shadow: 0 0 0 3px rgba(5, 38, 89, 0.1) !important;
+}
+
+button[role="checkbox"][data-state="checked"] {
+  background-color: #5483B3 !important;
+  border-color: #5483B3 !important;
+}
+
+/* Make checkbox labels clickable */
+button[role="checkbox"] + div label {
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+/* Ensure checkbox container is clickable */
+.flex.flex-row.items-start.space-x-3 {
+  cursor: pointer !important;
+}
+
+/* Check icon inside checkbox */
+button[role="checkbox"] svg {
+  width: 16px !important;
+  height: 16px !important;
+  color: white !important;
+}
