@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import TenantRequestForm from "@/components/forms/TenantRequestForm";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { Home, FileText, Edit, Wrench, Hammer, Phone, Mail, MapPin } from "lucide-react";
 
 export default function TenantRequestPage() {
   const handleDownloadPDF = () => {
@@ -29,7 +30,7 @@ export default function TenantRequestPage() {
             <div className="glass-card rounded-xl p-10 card-hover">
               <div className="mb-8">
                 <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-accent), var(--color-highlight))' }}>
-                  <span className="text-5xl">🏠</span>
+                  <Home className="w-12 h-12 text-primary-foreground" />
                 </div>
                 <h3 className="text-3xl font-bold mb-3 gradient-text">For Tenants</h3>
                 <p className="text-lg text-foreground">
@@ -40,22 +41,24 @@ export default function TenantRequestPage() {
               <div className="space-y-4">
                 <Button 
                   onClick={handleDownloadPDF}
-                  className="w-full"
+                  className="w-full gap-2"
                   size="lg"
                   data-testid="button-download-tenant-pdf"
                 >
-                  📄 Download Blank PDF
+                  <FileText className="w-5 h-5" />
+                  Download Blank PDF
                 </Button>
                 <Button 
                   onClick={() => {
                     document.getElementById('tenant-form')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   variant="secondary"
-                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                  className="w-full gap-2"
                   size="lg"
                   data-testid="button-scroll-to-form"
                 >
-                  📝 Submit Request Online
+                  <Edit className="w-5 h-5" />
+                  Submit Request Online
                 </Button>
                 <Link href="/landlord-request">
                   <Button variant="outline" className="w-full" size="lg" data-testid="button-landlord-form">
@@ -87,7 +90,7 @@ export default function TenantRequestPage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="glass-card rounded-xl p-8 text-center card-hover">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}>
-                <span className="text-3xl">🔧</span>
+                <Wrench className="w-10 h-10 text-primary-foreground" />
               </div>
               <h3 className="text-2xl font-semibold mb-3 text-foreground">Emergency Repairs</h3>
               <p className="text-muted-foreground">24/7 emergency response for urgent property issues</p>
@@ -95,7 +98,7 @@ export default function TenantRequestPage() {
             
             <div className="glass-card rounded-xl p-8 text-center card-hover">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-accent), var(--color-highlight))' }}>
-                <span className="text-3xl">🏠</span>
+                <Home className="w-10 h-10 text-primary-foreground" />
               </div>
               <h3 className="text-2xl font-semibold mb-3 text-foreground">Property Maintenance</h3>
               <p className="text-muted-foreground">Regular maintenance to keep properties in top condition</p>
@@ -103,9 +106,9 @@ export default function TenantRequestPage() {
             
             <div className="glass-card rounded-xl p-8 text-center card-hover">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-primary-dark), var(--color-primary))' }}>
-                <span className="text-3xl">🔨</span>
+                <Hammer className="w-10 h-10 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Renovations</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">Renovations</h3>
               <p className="text-muted-foreground">Complete renovation services for property improvements</p>
             </div>
           </div>
@@ -120,7 +123,7 @@ export default function TenantRequestPage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-card rounded-lg p-6">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-xl">📞</span>
+                <Phone className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-semibold mb-2">Phone</h3>
               <p className="text-muted-foreground">
@@ -132,7 +135,7 @@ export default function TenantRequestPage() {
             
             <div className="bg-card rounded-lg p-6">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-xl">📧</span>
+                <Mail className="w-6 h-6 text-accent" />
               </div>
               <h3 className="font-semibold mb-2">Email</h3>
               <p className="text-muted-foreground">
@@ -144,7 +147,7 @@ export default function TenantRequestPage() {
             
             <div className="bg-card rounded-lg p-6">
               <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-xl">📍</span>
+                <MapPin className="w-6 h-6 text-secondary" />
               </div>
               <h3 className="font-semibold mb-2">Service Area</h3>
               <p className="text-muted-foreground">Winnipeg, Manitoba</p>
@@ -159,10 +162,11 @@ export default function TenantRequestPage() {
       <div className="fixed bottom-4 left-4 right-4 md:hidden z-40">
         <a
           href="tel:2044814243"
-          className="block bg-destructive text-destructive-foreground text-center py-3 px-4 rounded-lg font-semibold shadow-lg"
+          className="flex items-center justify-center gap-2 bg-destructive text-destructive-foreground text-center py-3 px-4 rounded-lg font-semibold shadow-lg"
           data-testid="button-mobile-emergency"
         >
-          🚨 Emergency: (204) 481-4243
+          <Phone className="w-5 h-5" />
+          Emergency: (204) 481-4243
         </a>
       </div>
     </div>

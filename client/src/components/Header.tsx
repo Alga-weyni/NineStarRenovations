@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Star } from "lucide-react";
 
 export default function Header() {
   return (
@@ -8,7 +9,7 @@ export default function Header() {
           <Link href="/" data-testid="link-home">
             <div className="flex items-center space-x-3 cursor-pointer hover-elevate transition-transform duration-300">
               <div className="flex items-center space-x-1 luxury-glow rounded-full p-2">
-                <span className="text-3xl">⭐</span>
+                <Star className="w-8 h-8 fill-yellow-400 text-yellow-400" />
                 <span className="text-2xl font-bold gradient-text">9</span>
               </div>
               <div>

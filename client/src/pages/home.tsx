@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { Building2, Home, Shield, FileText } from "lucide-react";
+import { Building2, Home, Shield, FileText, Zap, Star } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -99,7 +99,7 @@ export default function HomePage() {
                   </li>
                 </ul>
                 <Link href="/tenant-request">
-                  <Button className="w-full bg-secondary hover:bg-secondary/90" size="lg">
+                  <Button variant="secondary" className="w-full" size="lg">
                     Submit Tenant Request
                   </Button>
                 </Link>
@@ -134,21 +134,27 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold mb-8">Why Choose 9 Star Renovations?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <div className="text-4xl mb-4">⚡</div>
+              <div className="mb-4 flex justify-center">
+                <Zap className="w-12 h-12 text-yellow-400" />
+              </div>
               <h3 className="text-xl font-semibold mb-2">Fast Response</h3>
               <p className="text-muted-foreground">
                 Emergency services available 24/7 with quick response times
               </p>
             </div>
             <div>
-              <div className="text-4xl mb-4">🛡️</div>
+              <div className="mb-4 flex justify-center">
+                <Shield className="w-12 h-12 text-blue-400" />
+              </div>
               <h3 className="text-xl font-semibold mb-2">Licensed & Insured</h3>
               <p className="text-muted-foreground">
                 Fully licensed contractors with comprehensive insurance coverage
               </p>
             </div>
             <div>
-              <div className="text-4xl mb-4">⭐</div>
+              <div className="mb-4 flex justify-center">
+                <Star className="w-12 h-12 fill-yellow-400 text-yellow-400" />
+              </div>
               <h3 className="text-xl font-semibold mb-2">Quality Work</h3>
               <p className="text-muted-foreground">
                 Experienced professionals delivering high-quality results
