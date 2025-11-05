@@ -1098,3 +1098,56 @@ button[role="checkbox"][data-state="checked"] svg {
   color: white !important;
   stroke: white !important;
 }
+
+/* === CHECKBOX COMPLETE STYLING === */
+/* Base checkbox styles - circular, white background, dark border */
+button[role="checkbox"] {
+  min-width: 20px !important;
+  min-height: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 10 !important;
+  background-color: white !important;
+  border: 2px solid #052659 !important;
+  border-radius: 50% !important;
+}
+
+/* Hover state */
+button[role="checkbox"]:hover {
+  border-color: #021024 !important;
+  box-shadow: 0 0 0 3px rgba(5, 38, 89, 0.1) !important;
+}
+
+/* CHECKED STATE - Dark blue/black fill */
+button[role="checkbox"][data-state="checked"] {
+  background-color: #021024 !important;
+  border-color: #021024 !important;
+}
+
+/* Checkmark - HIDE when unchecked */
+button[role="checkbox"][data-state="unchecked"] svg {
+  display: none !important;
+}
+
+/* Checkmark - SHOW white when checked */
+button[role="checkbox"][data-state="checked"] svg {
+  display: block !important;
+  width: 14px !important;
+  height: 14px !important;
+  color: white !important;
+  stroke: white !important;
+  stroke-width: 3px !important;
+}
+
+/* Make checkbox labels clickable */
+button[role="checkbox"] + div label {
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+/* Ensure checkbox container is clickable */
+.flex.flex-row.items-start.space-x-3 {
+  cursor: pointer !important;
+}
