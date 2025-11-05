@@ -221,22 +221,25 @@ export default function AdminRequestsPage() {
   if (!token) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Link href="/" data-testid="link-back-home">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            className="absolute top-8 left-8"
-            data-testid="button-back"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
         <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Admin Login</CardTitle>
-            <CardDescription>
-              Enter your credentials to access the admin panel
-            </CardDescription>
+          <CardHeader className="space-y-4">
+            <Link href="/" data-testid="link-back-home" className="self-start">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="gap-2"
+                data-testid="button-back"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Home
+              </Button>
+            </Link>
+            <div>
+              <CardTitle>Admin Login</CardTitle>
+              <CardDescription>
+                Enter your credentials to access the admin panel
+              </CardDescription>
+            </div>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
