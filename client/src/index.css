@@ -1015,103 +1015,19 @@ header .luxury-glow span {
   color: #C1E8FF !important;
   -webkit-text-fill-color: #C1E8FF !important;
 }
-
-/* === CHECKBOX VISIBILITY AND CLICKABILITY FIXES === */
-/* Make checkboxes larger and more clickable */
+/* === CHECKBOX STYLES === */
+/* Base checkbox - square, 18px, white background, dark border */
 button[role="checkbox"] {
-  min-width: 20px !important;
-  min-height: 20px !important;
-  width: 20px !important;
-  height: 20px !important;
-  cursor: pointer !important;
-  position: relative !important;
-  z-index: 10 !important;
-  background-color: #021024 !important;
-  border: 2px solid #052659 !important;
-}
-
-button[role="checkbox"]:hover {
-  border-color: #021024 !important;
-  box-shadow: 0 0 0 3px rgba(5, 38, 89, 0.1) !important;
-}
-
-button[role="checkbox"][data-state="checked"] {
-  background-color: #5483B3 !important;
-  border-color: #5483B3 !important;
-}
-
-/* Make checkbox labels clickable */
-button[role="checkbox"] + div label {
-  cursor: pointer !important;
-  user-select: none !important;
-}
-
-/* Ensure checkbox container is clickable */
-.flex.flex-row.items-start.space-x-3 {
-  cursor: pointer !important;
-}
-
-/* Check icon inside checkbox */
-button[role="checkbox"] svg {
-  width: 16px !important;
-  height: 16px !important;
-  color: #021024 !important;
-}
-
-/* === CHECKMARK VISIBILITY FIX === */
-/* Ensure checkmark icon is visible when checked */
-button[role="checkbox"][data-state="checked"] svg {
-  display: block !important;
-  width: 14px !important;
-  height: 14px !important;
-  color: #021024 !important;
-  stroke: #021024 !important;
-  stroke-width: 3px !important;
-}
-
-/* Make sure the indicator shows when checked */
-button[role="checkbox"][data-state="checked"] span {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* Unchecked state - no checkmark */
-button[role="checkbox"][data-state="unchecked"] svg {
-  display: none !important;
-}
-
-/* === CIRCULAR CHECKBOX WITH DARK FILL === */
-/* Make checkbox circular */
-button[role="checkbox"] {
-  border-radius: 50% !important;
-}
-
-/* When checked - fill with dark blue/black */
-button[role="checkbox"][data-state="checked"] {
-  background-color: #021024 !important;
-  border-color: #021024 !important;
-}
-
-/* White checkmark on dark background */
-button[role="checkbox"][data-state="checked"] svg {
-  color: white !important;
-  stroke: white !important;
-}
-
-/* === CHECKBOX COMPLETE STYLING === */
-/* Base checkbox styles - circular, white background, dark border */
-button[role="checkbox"] {
-  min-width: 20px !important;
-  min-height: 20px !important;
-  width: 20px !important;
-  height: 20px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
   cursor: pointer !important;
   position: relative !important;
   z-index: 10 !important;
   background-color: white !important;
   border: 2px solid #052659 !important;
-  border-radius: 50% !important;
+  border-radius: 3px !important;
 }
 
 /* Hover state */
@@ -1120,22 +1036,22 @@ button[role="checkbox"]:hover {
   box-shadow: 0 0 0 3px rgba(5, 38, 89, 0.1) !important;
 }
 
-/* CHECKED STATE - Dark blue/black fill */
+/* Checked state - dark fill */
 button[role="checkbox"][data-state="checked"] {
   background-color: #021024 !important;
   border-color: #021024 !important;
 }
 
-/* Checkmark - HIDE when unchecked */
+/* Hide checkmark when unchecked */
 button[role="checkbox"][data-state="unchecked"] svg {
   display: none !important;
 }
 
-/* Checkmark - SHOW white when checked */
+/* Show white checkmark when checked */
 button[role="checkbox"][data-state="checked"] svg {
   display: block !important;
-  width: 14px !important;
-  height: 14px !important;
+  width: 12px !important;
+  height: 12px !important;
   color: white !important;
   stroke: white !important;
   stroke-width: 3px !important;
@@ -1147,7 +1063,7 @@ button[role="checkbox"] + div label {
   user-select: none !important;
 }
 
-/* Ensure checkbox container is clickable */
+/* Make checkbox container clickable */
 .flex.flex-row.items-start.space-x-3 {
   cursor: pointer !important;
 }
