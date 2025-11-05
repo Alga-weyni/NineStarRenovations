@@ -55,7 +55,7 @@ export class EmailService {
       </ul>
       ` : ''}
       
-      <p><a href="${process.env.BASE_URL || 'http://localhost:5000'}/admin/requests/${request.id}.pdf">Download PDF</a></p>
+      <p><a href="${process.env.BASE_URL || 'http://localhost:5000'}/api/admin/requests/${request.id}.pdf">Download PDF</a></p>
     `;
 
     await this.transporter.sendMail({

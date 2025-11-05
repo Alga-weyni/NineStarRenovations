@@ -155,7 +155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   // Admin: Get all requests
-  app.get("/admin/requests", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests", requireAdminAuth, async (req, res) => {
     try {
       const { type = 'all', date_from, date_to } = req.query as {
         type?: 'landlord' | 'tenant' | 'all';
@@ -177,7 +177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Export CSV
-  app.get("/admin/requests/export.csv", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests/export.csv", requireAdminAuth, async (req, res) => {
     try {
       const { type = 'all', date_from, date_to } = req.query as {
         type?: 'landlord' | 'tenant' | 'all';
@@ -229,7 +229,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Download PDF
-  app.get("/admin/requests/:id.pdf", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests/:id.pdf", requireAdminAuth, async (req, res) => {
     try {
       const request = await storage.getRequest(req.params.id);
       if (!request) {
@@ -253,7 +253,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Update request status
-  app.patch("/admin/requests/:id/status", requireAdminAuth, async (req, res) => {
+  app.patch("/api/admin/requests/:id/status", requireAdminAuth, async (req, res) => {
     try {
       const { status } = req.body;
       

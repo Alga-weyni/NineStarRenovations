@@ -34,7 +34,7 @@ export default function AdminRequestsPage() {
   }, []);
 
   const requestsQuery = useQuery({
-    queryKey: ['/admin/requests', { ...filters, password }],
+    queryKey: ['/api/admin/requests', { ...filters, password }],
     enabled: isAuthenticated && !!password,
     queryFn: async () => {
       const params = new URLSearchParams({
@@ -44,7 +44,7 @@ export default function AdminRequestsPage() {
         ...(filters.dateTo && { date_to: filters.dateTo }),
       });
 
-      const response = await fetch(`/admin/requests?${params}`);
+      const response = await fetch(`/api/admin/requests?${params}`);
       if (!response.ok) {
         throw new Error('Failed to fetch requests');
       }
@@ -54,7 +54,7 @@ export default function AdminRequestsPage() {
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      const response = await fetch(`/admin/requests/${id}/status?password=${password}`, {
+      const response = await fetch(`/api/admin/requests/${id}/status?password=${password}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
@@ -66,7 +66,7 @@ export default function AdminRequestsPage() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/admin/requests'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/requests'] });
       toast({
         title: "Status Updated",
         description: "Request status has been updated successfully.",
@@ -96,12 +96,12 @@ export default function AdminRequestsPage() {
       ...(filters.dateTo && { date_to: filters.dateTo }),
     });
 
-    window.open(`/admin/requests/export.csv?${params}`, '_blank');
+    window.open(`/api/admin/requests/export.csv?${params}`, '_blank');
   };
 
   const handleDownloadPDF = (requestId: string) => {
     const params = new URLSearchParams({ password });
-    window.open(`/admin/requests/${requestId}.pdf?${params}`, '_blank');
+    window.open(`/api/admin/requests/${requestId}.pdf?${params}`, '_blank');
   };
 
   const getStatusBadgeVariant = (status: string) => {
