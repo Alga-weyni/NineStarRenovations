@@ -262,9 +262,22 @@
     @apply hidden;
   }
 
-  /* Fix for Radix Select content visibility */
-  [data-radix-select-content][data-state="closed"] {
-    display: none !important;
+  /* Fix for Radix Select content visibility and positioning */
+  [data-radix-select-viewport] {
+    position: relative;
+  }
+  
+  [data-radix-popper-content-wrapper] {
+    z-index: 50 !important;
+  }
+  
+  /* Ensure select content is only visible when open */
+  [data-radix-select-content] {
+    display: none;
+  }
+  
+  [data-radix-select-content][data-state="open"] {
+    display: block;
   }
 
   /* Placeholder styling for contentEditable div */
