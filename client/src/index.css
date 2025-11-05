@@ -1080,3 +1080,21 @@ button[role="checkbox"][data-state="checked"] span {
 button[role="checkbox"][data-state="unchecked"] svg {
   display: none !important;
 }
+
+/* === CIRCULAR CHECKBOX WITH DARK FILL === */
+/* Make checkbox circular */
+button[role="checkbox"] {
+  border-radius: 50% !important;
+}
+
+/* When checked - fill with dark blue/black */
+button[role="checkbox"][data-state="checked"] {
+  background-color: #021024 !important;
+  border-color: #021024 !important;
+}
+
+/* White checkmark on dark background */
+button[role="checkbox"][data-state="checked"] svg {
+  color: white !important;
+  stroke: white !important;
+}
