@@ -8,21 +8,23 @@ import { Building2, Home, Shield, FileText } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <EmergencyHeader />
       <Header />
       
-      <section className="hero-gradient text-primary-foreground py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+      <section className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-primary)] to-transparent opacity-20"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 gradient-text luxury-glow">
             9 Star Renovations
           </h1>
-          <p className="text-xl md:text-2xl mb-4 opacity-90">
-            Professional Property Services in Winnipeg
+          <p className="text-2xl md:text-3xl mb-4 text-foreground font-light">
+            Luxury Property Services in Winnipeg
           </p>
-          <p className="text-lg mb-8 opacity-80">
+          <p className="text-lg mb-8 text-accent">
             Licensed • Insured • Trusted by Property Owners & Tenants
           </p>
+          <div className="luxury-divider mx-auto w-32 my-8"></div>
         </div>
       </section>
 
@@ -34,13 +36,13 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="glass-card card-hover border-2">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Building2 className="w-8 h-8 text-primary" />
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}>
+                  <Building2 className="w-10 h-10 text-primary-foreground" />
                 </div>
-                <CardTitle className="text-2xl">Landlord Request</CardTitle>
-                <CardDescription>For property owners and management companies</CardDescription>
+                <CardTitle className="text-3xl gradient-text">Landlord Request</CardTitle>
+                <CardDescription className="text-base">For property owners and management companies</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -69,13 +71,13 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="glass-card card-hover border-2">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Home className="w-8 h-8 text-secondary" />
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 luxury-glow" style={{ background: 'linear-gradient(135deg, var(--color-accent), var(--color-highlight))' }}>
+                  <Home className="w-10 h-10 text-primary-foreground" />
                 </div>
-                <CardTitle className="text-2xl">Tenant Request</CardTitle>
-                <CardDescription>For residential tenants reporting issues</CardDescription>
+                <CardTitle className="text-3xl gradient-text">Tenant Request</CardTitle>
+                <CardDescription className="text-base">For residential tenants reporting issues</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ul className="space-y-2 text-sm text-muted-foreground">

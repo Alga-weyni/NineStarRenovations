@@ -2,92 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE */
+/* LUXURY COLOR PALETTE */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
+  /* Core Luxury Palette */
+  --color-primary-darkest: #021024;
+  --color-primary-dark: #052659;
+  --color-primary: #5483B3;
+  --color-accent: #7DA0CA;
+  --color-highlight: #C1E8FF;
+  
+  --button-outline: rgba(193, 232, 255, .15);
+  --badge-outline: rgba(125, 160, 202, .12);
 
   /* Automatic computation of border around primary / danger buttons */
-  --opaque-button-border-intensity: -8; /* In terms of percentages */
+  --opaque-button-border-intensity: 8; /* In terms of percentages */
 
   /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
+  --elevate-1: rgba(125, 160, 202, .08);
+  --elevate-2: rgba(193, 232, 255, .15);
 
-  --background: hsl(210, 40%, 98%);
+  --background: #021024;
 
-  --foreground: hsl(215, 25%, 15%);
+  --foreground: #E8F0FF;
 
-  --border: hsl(215, 25%, 90%);
+  --border: rgba(125, 160, 202, 0.2);
 
-  --card: hsl(0, 0%, 100%);
+  --card: rgba(5, 38, 89, 0.6);
 
-  --card-foreground: hsl(215, 25%, 15%);
+  --card-foreground: #E8F0FF;
 
-  --card-border: hsl(215, 25%, 90%);
+  --card-border: rgba(125, 160, 202, 0.3);
 
-  --sidebar: hsl(0, 0%, 100%);
+  --sidebar: rgba(5, 38, 89, 0.8);
 
-  --sidebar-foreground: hsl(215, 25%, 15%);
+  --sidebar-foreground: #E8F0FF;
 
-  --sidebar-border: hsl(215, 25%, 90%);
+  --sidebar-border: rgba(125, 160, 202, 0.25);
 
-  --sidebar-primary: hsl(217, 91%, 35%);
+  --sidebar-primary: #5483B3;
 
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-primary-foreground: #021024;
 
-  --sidebar-accent: hsl(217, 91%, 60%);
+  --sidebar-accent: #7DA0CA;
 
-  --sidebar-accent-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent-foreground: #021024;
 
-  --sidebar-ring: hsl(217, 91%, 60%);
+  --sidebar-ring: #C1E8FF;
 
-  --popover: hsl(0, 0%, 100%);
+  --popover: rgba(5, 38, 89, 0.95);
 
-  --popover-foreground: hsl(215, 25%, 15%);
+  --popover-foreground: #E8F0FF;
 
-  --popover-border: hsl(215, 25%, 90%);
+  --popover-border: rgba(125, 160, 202, 0.3);
 
-  --primary: hsl(217, 91%, 35%);
+  --primary: #5483B3;
 
-  --primary-foreground: hsl(0, 0%, 100%);
+  --primary-foreground: #021024;
 
-  --secondary: hsl(215, 25%, 40%);
+  --secondary: #7DA0CA;
 
-  --secondary-foreground: hsl(0, 0%, 100%);
+  --secondary-foreground: #021024;
 
-  --muted: hsl(210, 40%, 96%);
+  --muted: rgba(5, 38, 89, 0.4);
 
-  --muted-foreground: hsl(215, 25%, 40%);
+  --muted-foreground: rgba(232, 240, 255, 0.7);
 
-  --accent: hsl(217, 91%, 60%);
+  --accent: #7DA0CA;
 
-  --accent-foreground: hsl(0, 0%, 100%);
+  --accent-foreground: #021024;
 
-  --destructive: hsl(0, 70%, 50%);
+  --destructive: #DC2626;
 
-  --destructive-foreground: hsl(0, 0%, 100%);
+  --destructive-foreground: #E8F0FF;
 
-  --input: hsl(215, 25%, 90%);
-  --ring: hsl(217, 91%, 60%);
-  --chart-1: hsl(217, 91%, 35%);
-  --chart-2: hsl(217, 91%, 60%);
-  --chart-3: hsl(215, 25%, 40%);
-  --chart-4: hsl(210, 40%, 96%);
-  --chart-5: hsl(0, 70%, 50%);
+  --input: rgba(125, 160, 202, 0.15);
+  --ring: #C1E8FF;
+  --chart-1: #5483B3;
+  --chart-2: #7DA0CA;
+  --chart-3: #C1E8FF;
+  --chart-4: #052659;
+  --chart-5: #DC2626;
 
   --font-sans: Inter, system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 2px 0px 0px hsl(215, 25%, 90%);
-  --shadow-xs: 0px 2px 0px 0px hsl(215, 25%, 90%);
-  --shadow-sm: 0px 2px 0px 0px hsl(215, 25%, 90%), 0px 1px 2px -1px hsl(215, 25%, 90%);
-  --shadow: 0px 2px 0px 0px hsl(215, 25%, 90%), 0px 1px 2px -1px hsl(215, 25%, 90%);
-  --shadow-md: 0px 2px 0px 0px hsl(215, 25%, 90%), 0px 2px 4px -1px hsl(215, 25%, 90%);
-  --shadow-lg: 0px 2px 0px 0px hsl(215, 25%, 90%), 0px 4px 6px -1px hsl(215, 25%, 90%);
-  --shadow-xl: 0px 2px 0px 0px hsl(215, 25%, 90%), 0px 8px 10px -1px hsl(215, 25%, 90%);
-  --shadow-2xl: 0px 2px 0px 0px hsl(215, 25%, 90%);
+  --shadow-2xs: 0px 2px 8px rgba(193, 232, 255, 0.1);
+  --shadow-xs: 0px 2px 8px rgba(193, 232, 255, 0.15);
+  --shadow-sm: 0px 4px 12px rgba(125, 160, 202, 0.2);
+  --shadow: 0px 4px 16px rgba(125, 160, 202, 0.25);
+  --shadow-md: 0px 6px 20px rgba(84, 131, 179, 0.3);
+  --shadow-lg: 0px 8px 24px rgba(84, 131, 179, 0.35);
+  --shadow-xl: 0px 12px 32px rgba(84, 131, 179, 0.4);
+  --shadow-2xl: 0px 16px 40px rgba(84, 131, 179, 0.5);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
@@ -363,4 +370,115 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+}
+
+/* ===== LUXURY GRADIENT BACKGROUNDS ===== */
+body {
+  background: linear-gradient(180deg, var(--color-primary-darkest) 0%, var(--color-primary-dark) 50%, var(--color-primary) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Luxury Glass Effect for Cards */
+.glass-card {
+  background: rgba(5, 38, 89, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(125, 160, 202, 0.2);
+  box-shadow: 0 8px 32px rgba(84, 131, 179, 0.3);
+}
+
+/* Premium Button Styles */
+button, .btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(125, 160, 202, 0.2);
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(193, 232, 255, 0.4);
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
+}
+
+/* Luxury Glow Effect */
+.luxury-glow {
+  box-shadow: 0 0 20px rgba(193, 232, 255, 0.3),
+              0 0 40px rgba(125, 160, 202, 0.2),
+              0 0 60px rgba(84, 131, 179, 0.1);
+}
+
+/* Premium Input Fields */
+input, textarea, select {
+  background: rgba(125, 160, 202, 0.08);
+  border: 1px solid rgba(125, 160, 202, 0.2);
+  color: var(--foreground);
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  background: rgba(125, 160, 202, 0.12);
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 0 3px rgba(193, 232, 255, 0.1);
+}
+
+/* Luxury Accent Borders */
+.accent-border-top {
+  border-top: 2px solid var(--color-accent);
+}
+
+.accent-border-left {
+  border-left: 3px solid var(--color-highlight);
+}
+
+/* Premium Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-highlight) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer Effect for Premium Elements */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 3s infinite linear;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(193, 232, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Premium Card Hover Effect */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(84, 131, 179, 0.4);
+  border-color: var(--color-accent);
+}
+
+/* Luxury Divider */
+.luxury-divider {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent) 50%,
+    transparent
+  );
 }

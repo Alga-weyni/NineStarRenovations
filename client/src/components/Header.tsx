@@ -2,34 +2,34 @@ import { Link } from "wouter";
 
 export default function Header() {
   return (
-    <header className="bg-card border-b border-border">
+    <header className="glass-card border-b border-border backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center space-x-3 cursor-pointer hover-elevate">
-              <div className="flex items-center space-x-1">
-                <span className="star-icon text-2xl">⭐</span>
-                <span className="text-2xl font-bold text-foreground">9</span>
+            <div className="flex items-center space-x-3 cursor-pointer hover-elevate transition-transform duration-300">
+              <div className="flex items-center space-x-1 luxury-glow rounded-full p-2">
+                <span className="text-3xl">⭐</span>
+                <span className="text-2xl font-bold gradient-text">9</span>
               </div>
               <div>
                 <h1 className="text-xl font-bold text-foreground">9 Star Renovations</h1>
-                <p className="text-sm text-muted-foreground">Serving Winnipeg</p>
+                <p className="text-sm" style={{ color: 'var(--color-accent)' }}>Luxury Property Services</p>
               </div>
             </div>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link href="/landlord-request" data-testid="link-landlord-request">
-              <span className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <span className="text-foreground hover:text-highlight transition-all cursor-pointer font-medium hover:scale-105 inline-block">
                 Landlord
               </span>
             </Link>
             <Link href="/tenant-request" data-testid="link-tenant-request">
-              <span className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <span className="text-foreground hover:text-highlight transition-all cursor-pointer font-medium hover:scale-105 inline-block">
                 Tenant
               </span>
             </Link>
             <Link href="/admin/requests" data-testid="link-admin">
-              <span className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <span className="text-foreground hover:text-highlight transition-all cursor-pointer font-medium hover:scale-105 inline-block">
                 Admin
               </span>
             </Link>
