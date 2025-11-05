@@ -1,0 +1,90 @@
+💎 Updated Premium Theme (Brighter, More Readable)
+
+Paste this into your global stylesheet (styles.css or App.css) replacing the current gradient + text styling:
+
+/* === BODY BACKGROUND === */
+body {
+  background: linear-gradient(180deg, #052659 0%, #5483B3 60%, #7DA0CA 100%);
+  color: #F5FAFF; /* brighter text tone */
+  font-family: "Inter", "Poppins", sans-serif;
+}
+
+/* === HEADER / HERO AREA === */
+header, .hero, .premium-header {
+  background: linear-gradient(180deg, #021024 0%, #052659 80%);
+  color: #E9F3FF; /* near white for clarity */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* === TITLES === */
+h1, h2, h3, h4 {
+  color: #F2F7FF;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  font-weight: 700;
+}
+
+/* === SUBHEADINGS === */
+h5, h6, p, span, label {
+  color: #DDEBFF;
+}
+
+/* === HERO SECTION === */
+.hero {
+  background: linear-gradient(180deg, rgba(2,16,36,0.9) 0%, rgba(84,131,179,0.7) 100%);
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #FFFFFF;
+  text-shadow: 0 4px 12px rgba(84,131,179,0.8);
+}
+
+.hero p {
+  color: #E1EEFF;
+  font-size: 1.2rem;
+}
+
+/* === FORM SECTION === */
+.form-section {
+  background: linear-gradient(180deg, rgba(84,131,179,0.3) 0%, rgba(193,232,255,0.15) 100%);
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 6px 24px rgba(193,232,255,0.3);
+}
+
+/* === INPUT FIELDS === */
+input, select, textarea {
+  background-color: rgba(255,255,255,0.12);
+  border: 1px solid rgba(193,232,255,0.8);
+  color: #FFFFFF;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* === BUTTON === */
+button {
+  background: linear-gradient(90deg, #7DA0CA, #C1E8FF);
+  color: #021024;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 24px;
+  box-shadow: 0 4px 16px rgba(193,232,255,0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(193,232,255,0.6);
+}
+
+🎨 Visual Result
+Area	Change	Effect
+Gradient base	Brighter mid-tones (#5483B3, #7DA0CA)	Creates luminous contrast
+Text	Pure white-blue tones (#F5FAFF, #E9F3FF)	Stands out clearly
+Hero title	White with soft glow	Premium readability
+Form	Subtle light overlay	Keeps luxury feel without dullness
