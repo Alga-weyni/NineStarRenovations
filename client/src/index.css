@@ -746,3 +746,141 @@ label {
 .card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
   color: #F2F7FF !important;
 }
+/* === LIGHT PREMIUM GLOBAL BACKGROUND === */
+body {
+  background: linear-gradient(180deg, #7DA0CA 0%, #C1E8FF 100%) !important;
+  color: #021024 !important;
+  min-height: 100vh;
+}
+
+/* === DARK ELEGANT HEADER === */
+header, nav, .navbar, .premium-header {
+  background: linear-gradient(180deg, #021024 0%, #052659 100%) !important;
+  color: #C1E8FF !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+header a, nav a, .navbar a {
+  color: #C1E8FF !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+header a:hover, nav a:hover, .navbar a:hover {
+  color: #7DA0CA !important;
+}
+
+/* === GLASS EFFECT SECTIONS === */
+.section, .form-section, .info-card, .glass-card {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 6px 24px rgba(2, 16, 36, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+/* === DARK TEXT ON LIGHT BACKGROUND === */
+h1, h2, h3, h4 {
+  color: #021024 !important;
+  font-weight: 700;
+  text-shadow: none !important;
+}
+
+h5, h6 {
+  color: #052659 !important;
+  font-weight: 600;
+}
+
+p, label, span {
+  color: #052659 !important;
+}
+
+/* === LIGHT THEME BUTTONS === */
+button:not(.no-luxury-gradient) {
+  background: linear-gradient(90deg, #5483B3, #C1E8FF) !important;
+  color: #021024 !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  box-shadow: 0 4px 12px rgba(84, 131, 179, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:not(.no-luxury-gradient):hover {
+  background: linear-gradient(90deg, #7DA0CA, #C1E8FF) !important;
+  box-shadow: 0 8px 24px rgba(84, 131, 179, 0.6);
+  transform: translateY(-2px);
+}
+
+/* === LIGHT THEME INPUTS === */
+input:not([type="checkbox"]):not([type="radio"]), 
+select, 
+textarea {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border: 1px solid rgba(2, 16, 36, 0.3) !important;
+  color: #021024 !important;
+  border-radius: 6px;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, 
+textarea::placeholder,
+select::placeholder {
+  color: rgba(2, 16, 36, 0.5) !important;
+}
+
+input:focus, 
+select:focus, 
+textarea:focus {
+  outline: none !important;
+  border-color: #5483B3 !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 12px rgba(84, 131, 179, 0.3) !important;
+}
+
+/* === LIGHT THEME CARDS === */
+.card {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(2, 16, 36, 0.15);
+}
+
+.card p, .card span, .card label {
+  color: #052659 !important;
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+  color: #021024 !important;
+}
+
+/* === LIGHT THEME HERO === */
+.hero {
+  background: linear-gradient(180deg, rgba(125, 160, 202, 0.5) 0%, rgba(193, 232, 255, 0.3) 100%) !important;
+  backdrop-filter: blur(10px);
+  color: #021024 !important;
+}
+
+.hero h1 {
+  color: #021024 !important;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+}
+
+.hero p {
+  color: #052659 !important;
+}
+
+/* === HEADER TITLE OVERRIDE FOR LIGHT === */
+.header-title {
+  color: #C1E8FF !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.header-subtitle {
+  color: #7DA0CA !important;
+}
+
+/* === MUTED TEXT ON LIGHT === */
+.muted, .text-muted-foreground {
+  color: #5483B3 !important;
+}

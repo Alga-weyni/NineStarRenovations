@@ -1,0 +1,94 @@
+🎨 1. Apply the Light Premium Background Across All Pages
+
+In your styles.css (or global stylesheet), set this as your default background for the entire site:
+
+/* === GLOBAL PAGE BACKGROUND === */
+body {
+  background: linear-gradient(180deg, #7DA0CA 0%, #C1E8FF 100%);
+  color: #021024;
+  font-family: "Inter", "Poppins", sans-serif;
+  min-height: 100vh;
+}
+
+
+✅ This gives every page that soft blue tone from your screenshot.
+Text defaults to a readable dark navy (#021024).
+
+🧭 2. Keep Header Dark & Elegant
+
+Your header/nav should remain bold to anchor the brand visually:
+
+header, nav, .navbar {
+  background: linear-gradient(180deg, #021024 0%, #052659 100%);
+  color: #C1E8FF;
+  padding: 16px 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+header a, nav a, .navbar a {
+  color: #C1E8FF;
+  text-decoration: none;
+  margin: 0 12px;
+  transition: color 0.3s ease;
+}
+
+header a:hover, nav a:hover, .navbar a:hover {
+  color: #7DA0CA;
+}
+
+
+✅ Result: dark navy header, luminous main body background.
+
+🪶 3. Enhance Section Cards (Optional for Forms or Content Boxes)
+
+If you have forms, cards, or info boxes:
+
+.section, .form-section, .info-card {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 6px 24px rgba(2, 16, 36, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+
+✅ Creates a semi-transparent “glass” look that harmonizes with your light blue base.
+
+🌟 4. Refine Typography Contrast
+h1, h2, h3, h4 {
+  color: #021024;
+  font-weight: 700;
+}
+
+p, label, span {
+  color: #052659;
+}
+
+button {
+  background: linear-gradient(90deg, #5483B3, #C1E8FF);
+  color: #021024;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  box-shadow: 0 4px 12px rgba(84, 131, 179, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #7DA0CA, #C1E8FF);
+  box-shadow: 0 8px 24px rgba(84, 131, 179, 0.6);
+  transform: translateY(-2px);
+}
+
+
+✅ Headings become sharp navy, body text subtle blue-gray, buttons gently luminous.
+
+💻 5. Apply to All Pages in Replit
+
+In Replit:
+
+# Open global CSS
+open styles.css
+
+
+Then paste the above.
