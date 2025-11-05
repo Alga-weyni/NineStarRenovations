@@ -1,29 +1,29 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { pgTable, varchar, text, boolean, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const requests = sqliteTable("requests", {
-  id: text("id").primaryKey().default(sql`(lower(hex(randomblob(16))))`),
-  type: text("type", { enum: ["landlord", "tenant"] }).notNull(),
-  fullName: text("full_name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone").notNull(),
+export const requests = pgTable("requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  type: varchar("type", { length: 20 }).notNull(),
+  fullName: varchar("full_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 50 }).notNull(),
   address: text("address").notNull(),
-  unit: text("unit"), // tenant only
-  company: text("company"), // landlord only
-  requestType: text("request_type").notNull(),
-  preferredDateTime: text("preferred_date_time"), // landlord only
+  unit: varchar("unit", { length: 50 }), // tenant only
+  company: varchar("company", { length: 255 }), // landlord only
+  requestType: varchar("request_type", { length: 50 }).notNull(),
+  preferredDateTime: varchar("preferred_date_time", { length: 100 }), // landlord only
   accessInstructions: text("access_instructions"), // landlord only
-  budgetRange: text("budget_range"), // landlord only
-  entryPermission: text("entry_permission"), // tenant only
+  budgetRange: varchar("budget_range", { length: 50 }), // landlord only
+  entryPermission: varchar("entry_permission", { length: 50 }), // tenant only
   description: text("description").notNull(),
   files: text("files"), // JSON string array or null
-  consent: integer("consent", { mode: "boolean" }).notNull(),
-  status: text("status", { enum: ["new", "in-progress", "closed"] }).default("new"),
-  ticketId: text("ticket_id").notNull(),
-  createdAt: text("created_at").default(sql`datetime('now')`),
-  updatedAt: text("updated_at").default(sql`datetime('now')`),
+  consent: boolean("consent").notNull(),
+  status: varchar("status", { length: 20 }).default("new"),
+  ticketId: varchar("ticket_id", { length: 20 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const insertRequestSchema = createInsertSchema(requests).omit({
