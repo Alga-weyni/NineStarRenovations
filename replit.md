@@ -8,6 +8,15 @@ The application serves as a complete business workflow solution that handles cus
 
 Preferred communication style: Simple, everyday language.
 
+# Admin Access
+
+**Default Admin Credentials:**
+- Username: `admin`
+- Password: `Admin123!`
+- Location: `/admin/requests`
+
+The admin user is automatically created on first server startup. The credentials are stored securely in the PostgreSQL database with bcryptjs password hashing. Admin sessions use JWT tokens with 24-hour expiration.
+
 # System Architecture
 
 ## Frontend Architecture
@@ -21,9 +30,11 @@ The server is built with Express.js and follows a modular architecture with sepa
 Rate limiting is implemented to prevent abuse, and the server includes comprehensive error handling and logging. The API follows RESTful conventions with JSON responses and proper HTTP status codes.
 
 ## Data Storage Solution
-The application uses SQLite as the primary database with better-sqlite3 for Node.js integration. The schema is managed through Drizzle ORM with TypeScript-first type safety. Database migrations are handled through Drizzle Kit with a dedicated migrations directory.
+The application uses PostgreSQL (via Neon) as the primary database with @neondatabase/serverless for Node.js integration. The schema is managed through Drizzle ORM with TypeScript-first type safety. Database migrations are handled through Drizzle Kit with a dedicated migrations directory.
 
-The data model includes a comprehensive requests table supporting both landlord and tenant request types with shared and type-specific fields. File references are stored as JSON arrays, and the system includes audit fields for tracking creation and updates.
+The data model includes a comprehensive requests table supporting both landlord and tenant request types with shared and type-specific fields, and an admin_users table for secure authentication. File references are stored as JSON arrays, and the system includes audit fields for tracking creation and updates.
+
+Database initialization automatically creates a default admin user on first startup if none exists.
 
 ## PDF Generation System
 PDF generation is handled server-side using PDFKit for programmatic PDF creation. The system supports two modes: blank PDF generation for downloads and filled PDF generation from submitted form data. Templates include proper formatting, business branding, and comprehensive field mapping from the request data.
@@ -43,10 +54,12 @@ The frontend provides a drag-and-drop interface with file validation and preview
 # External Dependencies
 
 ## Database
-- **better-sqlite3**: Embedded SQLite database for data persistence
+- **@neondatabase/serverless**: PostgreSQL database connection via Neon
 - **drizzle-orm**: TypeScript ORM for database operations and migrations
 
 ## Authentication & Security
+- **bcryptjs**: Password hashing with salt rounds for secure storage
+- **jsonwebtoken**: JWT token generation and verification for stateless authentication
 - **express-rate-limit**: Rate limiting middleware for API protection
 - **multer**: File upload handling with validation
 
