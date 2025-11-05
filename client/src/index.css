@@ -1017,7 +1017,8 @@ header .luxury-glow span {
 }
 /* === CHECKBOX STYLES === */
 /* Base checkbox - square, 18px, white background, dark border */
-button[role="checkbox"] {
+button[role="checkbox"],
+button[role="checkbox"][data-state="unchecked"] {
   min-width: 18px !important;
   min-height: 18px !important;
   width: 18px !important;
@@ -1026,6 +1027,7 @@ button[role="checkbox"] {
   position: relative !important;
   z-index: 10 !important;
   background-color: white !important;
+  background: white !important;
   border: 2px solid #052659 !important;
   border-radius: 3px !important;
 }
@@ -1036,25 +1038,45 @@ button[role="checkbox"]:hover {
   box-shadow: 0 0 0 3px rgba(5, 38, 89, 0.1) !important;
 }
 
-/* Checked state - dark fill */
-button[role="checkbox"][data-state="checked"] {
+/* Checked state - STRONG dark fill to show clear difference */
+button[role="checkbox"][data-state="checked"],
+button[role="checkbox"][data-state="checked"]:hover {
   background-color: #021024 !important;
+  background: #021024 !important;
   border-color: #021024 !important;
+  border: 2px solid #021024 !important;
 }
 
-/* Hide checkmark when unchecked */
-button[role="checkbox"][data-state="unchecked"] svg {
+/* Hide checkmark when unchecked - FORCE HIDE */
+button[role="checkbox"][data-state="unchecked"] svg,
+button[role="checkbox"][data-state="unchecked"] span,
+button[role="checkbox"][data-state="unchecked"] .lucide {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
-/* Show white checkmark when checked */
-button[role="checkbox"][data-state="checked"] svg {
+/* Show white checkmark when checked - FORCE SHOW */
+button[role="checkbox"][data-state="checked"] svg,
+button[role="checkbox"][data-state="checked"] span svg {
   display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   width: 12px !important;
   height: 12px !important;
   color: white !important;
+  fill: white !important;
   stroke: white !important;
   stroke-width: 3px !important;
+}
+
+/* Ensure the indicator container is visible when checked */
+button[role="checkbox"][data-state="checked"] span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Make checkbox labels clickable */
