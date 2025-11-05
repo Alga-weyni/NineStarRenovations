@@ -9,7 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Download, FileText, Building2, Home } from "lucide-react";
+import { Download, FileText, Building2, Home, ArrowLeft } from "lucide-react";
+import { Link } from "wouter";
 import type { Request } from "@shared/schema";
 
 export default function AdminRequestsPage() {
@@ -219,7 +220,17 @@ export default function AdminRequestsPage() {
 
   if (!token) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Link href="/" data-testid="link-back-home">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="absolute top-8 left-8"
+            data-testid="button-back"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        </Link>
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Admin Login</CardTitle>
