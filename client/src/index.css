@@ -526,3 +526,98 @@ input:focus, textarea:focus, select:focus {
   background: linear-gradient(180deg, rgba(2, 16, 36, 0.95) 0%, rgba(5, 38, 89, 0.9) 100%);
   color: #EAF6FF;
 }
+
+/* === ENHANCED TEXT CONTRAST === */
+body {
+  color: #EAF6FF;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #C1E8FF;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+p, label, span {
+  color: #D6E4FF;
+}
+
+/* === LUXURY FORM INPUTS === */
+input:not([type="checkbox"]):not([type="radio"]), 
+select, 
+textarea {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(193, 232, 255, 0.6) !important;
+  color: #EAF6FF !important;
+  border-radius: 6px;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, 
+textarea::placeholder,
+select::placeholder {
+  color: rgba(193, 232, 255, 0.7) !important;
+}
+
+input:focus, 
+select:focus, 
+textarea:focus {
+  outline: none !important;
+  border-color: #C1E8FF !important;
+  background-color: rgba(193, 232, 255, 0.12) !important;
+  box-shadow: 0 0 12px rgba(193, 232, 255, 0.4) !important;
+}
+
+/* === FORM SECTION CONTAINER === */
+.form-section {
+  background: linear-gradient(180deg, rgba(2, 16, 36, 0.95) 0%, rgba(5, 38, 89, 0.9) 100%);
+  color: #EAF6FF;
+  padding: 40px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(2, 16, 36, 0.5);
+}
+
+.form-section h2 {
+  color: #C1E8FF;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.form-section p {
+  color: #A9C7E8;
+}
+
+/* === LUXURY BUTTON GRADIENTS === */
+button:not(.no-luxury-gradient) {
+  background: linear-gradient(90deg, #7DA0CA, #C1E8FF);
+  color: #021024;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(193, 232, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:not(.no-luxury-gradient):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(193, 232, 255, 0.5);
+}
+
+/* === ENHANCED FORM LABELS === */
+.form-label,
+label {
+  color: #D6E4FF;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* === READABLE CARD TEXT === */
+.card-text,
+.card p,
+.card span {
+  color: #D6E4FF;
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+  color: #C1E8FF;
+}
