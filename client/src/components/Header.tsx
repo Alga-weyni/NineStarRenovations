@@ -28,13 +28,11 @@ export default function Header() {
                 Tenant
               </span>
             </Link>
-            <a
-              href="/admin/requests?password=admin123"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-admin"
-            >
-              Admin
-            </a>
+            <Link href="/admin/requests" data-testid="link-admin">
+              <span className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                Admin
+              </span>
+            </Link>
           </nav>
         </div>
       </div>
