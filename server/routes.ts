@@ -6,6 +6,8 @@ import { PDFGenerator } from "./services/pdfGenerator";
 import { EmailService } from "./services/emailService";
 import { createRateLimiter } from "./middleware/rateLimiter";
 import { upload } from "./middleware/upload";
+import { authenticateToken, type AuthRequest } from "./middleware/authMiddleware";
+import { AuthService } from "./services/authService";
 import { z } from "zod";
 import path from "path";
 import fs from "fs";
@@ -143,19 +145,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin authentication middleware
-  const requireAdminAuth = (req: any, res: any, next: any) => {
-    const { password } = req.query;
-    const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
-    
-    if (password !== adminPassword) {
-      return res.status(401).json({ error: "Invalid admin password" });
+  // Auth: Check if admin exists
+  app.get("/api/auth/check", async (req, res) => {
+    try {
+      const exists = await AuthService.checkIfAdminExists();
+      res.json({ adminExists: exists });
+    } catch (error) {
+      console.error("Admin check error:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-    next();
-  };
+  });
+
+  // Auth: Initialize first admin user
+  app.post("/api/auth/init", async (req, res) => {
+    try {
+      const adminExists = await AuthService.checkIfAdminExists();
+      if (adminExists) {
+        return res.status(400).json({ error: "Admin user already exists" });
+      }
+
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ error: "Username and password are required" });
+      }
+
+      if (password.length < 8) {
+        return res.status(400).json({ error: "Password must be at least 8 characters" });
+      }
+
+      const user = await AuthService.createAdminUser(username, password);
+      const token = AuthService.generateToken(user.id, user.username);
+
+      res.json({
+        success: true,
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+        },
+      });
+    } catch (error) {
+      console.error("Admin init error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Auth: Login
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+
+      if (!username || !password) {
+        return res.status(400).json({ error: "Username and password are required" });
+      }
+
+      const result = await AuthService.authenticateAdmin(username, password);
+
+      if (!result) {
+        return res.status(401).json({ error: "Invalid username or password" });
+      }
+
+      res.json({
+        success: true,
+        token: result.token,
+        user: {
+          id: result.user.id,
+          username: result.user.username,
+        },
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
   // Admin: Get all requests
-  app.get("/api/admin/requests", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests", authenticateToken, async (req, res) => {
     try {
       const { type = 'all', date_from, date_to } = req.query as {
         type?: 'landlord' | 'tenant' | 'all';
@@ -177,7 +243,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Export CSV
-  app.get("/api/admin/requests/export.csv", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests/export.csv", authenticateToken, async (req, res) => {
     try {
       const { type = 'all', date_from, date_to } = req.query as {
         type?: 'landlord' | 'tenant' | 'all';
@@ -229,7 +295,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Download PDF
-  app.get("/api/admin/requests/:id.pdf", requireAdminAuth, async (req, res) => {
+  app.get("/api/admin/requests/:id.pdf", authenticateToken, async (req, res) => {
     try {
       const request = await storage.getRequest(req.params.id);
       if (!request) {
@@ -253,7 +319,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin: Update request status
-  app.patch("/api/admin/requests/:id/status", requireAdminAuth, async (req, res) => {
+  app.patch("/api/admin/requests/:id/status", authenticateToken, async (req, res) => {
     try {
       const { status } = req.body;
       

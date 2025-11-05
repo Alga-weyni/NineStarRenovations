@@ -13,8 +13,11 @@ import { Download, FileText, Building2, Home } from "lucide-react";
 import type { Request } from "@shared/schema";
 
 export default function AdminRequestsPage() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showInitForm, setShowInitForm] = useState(false);
   const [filters, setFilters] = useState({
     type: 'all' as 'all' | 'landlord' | 'tenant',
     dateFrom: '',
@@ -23,28 +26,50 @@ export default function AdminRequestsPage() {
 
   const { toast } = useToast();
 
-  // Check for password in URL params
+  // Check if admin exists and restore token from localStorage
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlPassword = urlParams.get('password');
-    if (urlPassword) {
-      setPassword(urlPassword);
-      setIsAuthenticated(true);
+    const storedToken = localStorage.getItem('adminToken');
+    if (storedToken) {
+      setToken(storedToken);
     }
+
+    fetch('/api/auth/check')
+      .then(res => res.json())
+      .then(data => {
+        setShowInitForm(!data.adminExists);
+      })
+      .catch(err => {
+        console.error('Failed to check admin status:', err);
+      });
   }, []);
 
   const requestsQuery = useQuery({
-    queryKey: ['/api/admin/requests', { ...filters, password }],
-    enabled: isAuthenticated && !!password,
+    queryKey: ['/api/admin/requests', filters],
+    enabled: !!token,
     queryFn: async () => {
       const params = new URLSearchParams({
-        password,
         type: filters.type,
         ...(filters.dateFrom && { date_from: filters.dateFrom }),
         ...(filters.dateTo && { date_to: filters.dateTo }),
       });
 
-      const response = await fetch(`/api/admin/requests?${params}`);
+      const response = await fetch(`/api/admin/requests?${params}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminToken');
+        setToken(null);
+        toast({
+          title: "Session Expired",
+          description: "Please log in again.",
+          variant: "destructive",
+        });
+        throw new Error('Unauthorized');
+      }
+
       if (!response.ok) {
         throw new Error('Failed to fetch requests');
       }
@@ -54,9 +79,12 @@ export default function AdminRequestsPage() {
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      const response = await fetch(`/api/admin/requests/${id}/status?password=${password}`, {
+      const response = await fetch(`/api/admin/requests/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({ status }),
       });
 
@@ -81,27 +109,153 @@ export default function AdminRequestsPage() {
     },
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleInit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.trim()) {
-      setIsAuthenticated(true);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/auth/init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Initialization Failed",
+          description: data.error || "Failed to create admin user",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      localStorage.setItem('adminToken', data.token);
+      setToken(data.token);
+      setShowInitForm(false);
+      toast({
+        title: "Admin Created",
+        description: "Admin user created successfully!",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to initialize admin user",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Login Failed",
+          description: data.error || "Invalid credentials",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      localStorage.setItem('adminToken', data.token);
+      setToken(data.token);
+      toast({
+        title: "Login Successful",
+        description: `Welcome back, ${data.user.username}!`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to log in",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setToken(null);
+    setUsername("");
+    setPassword("");
+    toast({
+      title: "Logged Out",
+      description: "You have been logged out successfully.",
+    });
   };
 
   const handleExportCSV = () => {
     const params = new URLSearchParams({
-      password,
       type: filters.type,
       ...(filters.dateFrom && { date_from: filters.dateFrom }),
       ...(filters.dateTo && { date_to: filters.dateTo }),
     });
 
-    window.open(`/api/admin/requests/export.csv?${params}`, '_blank');
+    const url = `/api/admin/requests/export.csv?${params}`;
+    fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(res => res.blob())
+      .then(blob => {
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `requests-export-${Date.now()}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(downloadUrl);
+        document.body.removeChild(a);
+      })
+      .catch(err => {
+        toast({
+          title: "Export Failed",
+          description: "Failed to export CSV",
+          variant: "destructive",
+        });
+      });
   };
 
   const handleDownloadPDF = (requestId: string) => {
-    const params = new URLSearchParams({ password });
-    window.open(`/api/admin/requests/${requestId}.pdf?${params}`, '_blank');
+    fetch(`/api/admin/requests/${requestId}.pdf`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(res => res.blob())
+      .then(blob => {
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `request-${requestId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(downloadUrl);
+        document.body.removeChild(a);
+      })
+      .catch(err => {
+        toast({
+          title: "Download Failed",
+          description: "Failed to download PDF",
+          variant: "destructive",
+        });
+      });
   };
 
   const getStatusBadgeVariant = (status: string) => {
@@ -113,15 +267,34 @@ export default function AdminRequestsPage() {
     }
   };
 
-  if (!isAuthenticated) {
+  if (!token) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Admin Login</CardTitle>
+            <CardTitle>{showInitForm ? "Create Admin Account" : "Admin Login"}</CardTitle>
+            <CardDescription>
+              {showInitForm 
+                ? "Set up the first admin account for your system" 
+                : "Enter your credentials to access the admin panel"}
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={showInitForm ? handleInit : handleLogin} className="space-y-4">
+              <div>
+                <label htmlFor="username" className="text-sm font-medium">
+                  Username
+                </label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
+                  required
+                  data-testid="input-username"
+                />
+              </div>
               <div>
                 <label htmlFor="password" className="text-sm font-medium">
                   Password
@@ -131,12 +304,19 @@ export default function AdminRequestsPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter admin password"
-                  data-testid="input-admin-password"
+                  placeholder={showInitForm ? "Min 8 characters" : "Enter password"}
+                  required
+                  minLength={showInitForm ? 8 : undefined}
+                  data-testid="input-password"
                 />
               </div>
-              <Button type="submit" className="w-full" data-testid="button-admin-login">
-                Login
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={isLoading}
+                data-testid="button-submit"
+              >
+                {isLoading ? "Please wait..." : (showInitForm ? "Create Admin" : "Login")}
               </Button>
             </form>
           </CardContent>
@@ -153,7 +333,7 @@ export default function AdminRequestsPage() {
             <h1 className="text-2xl font-bold text-foreground">
               9 Star Renovations - Admin Panel
             </h1>
-            <Button onClick={() => setIsAuthenticated(false)} variant="outline" data-testid="button-logout">
+            <Button onClick={handleLogout} variant="outline" data-testid="button-logout">
               Logout
             </Button>
           </div>

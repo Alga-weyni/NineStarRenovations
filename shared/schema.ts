@@ -1,7 +1,15 @@
 import { sql } from "drizzle-orm";
-import { pgTable, varchar, text, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, varchar, text, boolean, timestamp, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+
+export const adminUsers = pgTable("admin_users", {
+  id: serial("id").primaryKey(),
+  username: varchar("username", { length: 100 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
 
 export const requests = pgTable("requests", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -46,7 +54,7 @@ export const landlordRequestSchema = insertRequestSchema.extend({
   accessInstructions: z.string().optional(),
   budgetRange: z.enum(["under-500", "500-1000", "1000-2500", "2500-5000", "over-5000"]).optional(),
   description: z.string().min(1, "Description is required").max(1000, "Description too long"),
-  files: z.union([z.array(z.string()), z.string()]).optional(),
+  files: z.string().optional(),
   consent: z.boolean().refine(val => val === true, "Consent is required"),
 }).omit({ unit: true, entryPermission: true });
 
@@ -60,7 +68,7 @@ export const tenantRequestSchema = insertRequestSchema.extend({
   requestType: z.enum(["emergency", "plumbing", "electrical", "heating", "appliance", "maintenance", "other"]),
   entryPermission: z.enum(["yes-anytime", "yes-scheduled", "emergency-only", "no"]),
   description: z.string().min(1, "Description is required").max(1000, "Description too long"),
-  files: z.union([z.array(z.string()), z.string()]).optional(),
+  files: z.string().optional(),
   consent: z.boolean().refine(val => val === true, "Consent is required"),
 }).omit({ company: true, preferredDateTime: true, accessInstructions: true, budgetRange: true });
 
@@ -68,3 +76,4 @@ export type InsertRequest = z.infer<typeof insertRequestSchema>;
 export type Request = typeof requests.$inferSelect;
 export type LandlordRequest = z.infer<typeof landlordRequestSchema>;
 export type TenantRequest = z.infer<typeof tenantRequestSchema>;
+export type AdminUser = typeof adminUsers.$inferSelect;
